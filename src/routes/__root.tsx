@@ -1,5 +1,14 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import "@/styles/globals.css";
+import { AppShell } from "@/components/layout/app-shell"
+import type { MenuItem } from "@/components/layout/sidebar"
+import { LayoutDashboard, Users, Phone, BarChart3 } from "lucide-react"
+
+const menuItems: MenuItem[] = [
+  { label: "数据看板", href: "/", icon: LayoutDashboard },
+  { label: "客户管理", href: "/customers", icon: Users },
+  { label: "销售跟进", href: "/followups", icon: Phone },
+]
 
 export const Route = createRootRoute({
   head: () => ({
@@ -9,8 +18,8 @@ export const Route = createRootRoute({
         name: "viewport",
         content: "width=device-width, initial-scale=1",
       },
-      { title: "syncMind Skills" },
-      { name: "description", content: "syncMind Skills Platform" },
+      { title: "CRM 管理系统" },
+      { name: "description", content: "制造业 CRM 解决方案" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -30,12 +39,14 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <head>
         <HeadContent />
       </head>
       <body className="antialiased" style={{ fontFamily: "'Inter', 'Noto Sans SC', system-ui, sans-serif" }}>
-        <Outlet />
+        <AppShell title="CRM 系统" items={menuItems}>
+          <Outlet />
+        </AppShell>
         <Scripts />
         <NavBridgeScript />
       </body>

@@ -1,0 +1,249 @@
+{
+  "currentVersion": "v0.1",
+  "status": "draft",
+  "versions": [],
+  "current": {
+    "salesInput": {
+      "salesPerson": "",
+      "lastUpdated": "2026-04-14",
+      "overallAssessment": {
+        "customerIntent": "客户明确表达了CRM/销售管理需求，目标清晰",
+        "projectUrgency": "中，CCMT展会（4月21日）前可能有一次接触机会",
+        "budgetSituation": "未知",
+        "competitionStatus": "未知",
+        "winProbability": "待评估",
+        "keyObstacles": ["客户可能已有ERP等系统，CRM需与现有系统集成"],
+        "confidenceLevel": "中"
+      },
+      "keyPersons": [
+        { "role": "销售总监", "name": "待确认", "influence": "高", "attitude": "待了解" }
+      ],
+      "realNeeds": {
+        "explicitNeeds": ["标准化销售流程", "主管看清销售情况", "沉淀客户资源", "提高转化率复购率"],
+        "implicitNeeds": ["销售过程可视化", "企业级客户资产沉淀", "复购机会识别"],
+        "suspectedNeeds": ["与现有ERP系统集成", "移动端支持"]
+      },
+      "decisionFactors": {
+        "primaryFactor": "能否解决销售主管对团队的可视化管理",
+        "secondaryFactors": ["实施周期", "操作便捷性", "价格"],
+        "dealBreakers": ["数据必须本地部署"]
+      },
+      "notes": "客户原始需求聚焦CRM核心，与profile中的'数据孤岛'痛点呼应",
+      "concerns": ["销售团队使用习惯的迁移成本"],
+      "suggestions": ["以'数据资产归企业'为核心卖点切入"]
+    },
+    "sources": {
+      "meetings": [],
+      "documents": [],
+      "communications": [
+        { "type": "原始需求描述", "content": "客户想要标准化销售流程让主管看清销售情况，沉淀客户资源提高转化率复购率", "date": "2026-04-14", "confidence": "high" }
+      ],
+      "observations": []
+    },
+    "needs": [
+      {
+        "id": "REQ-001",
+        "category": "business",
+        "title": "销售过程标准化管理",
+        "description": "建立统一的销售流程标准（线索→商机→报价→合同→回款），让销售主管实时掌握每个客户、每个商机的进展阶段，打破销售过程黑盒",
+        "priority": "must",
+        "confidence": "high",
+        "source": { "type": "customer-stated", "detail": "客户原话：标准化销售流程让主管看清销售情况", "raw": null },
+        "status": "active",
+        "module": "CRM",
+        "relatedPainPoints": ["客户资源散落在销售个人手中，主管看不清"],
+        "firstVersion": "v0.1",
+        "lastUpdated": "v0.1",
+        "history": []
+      },
+      {
+        "id": "REQ-002",
+        "category": "business",
+        "title": "客户资源统一沉淀",
+        "description": "将分散在各个销售员工手机、微信、Excel中的客户信息统一录入系统，形成企业级客户资产池，避免人员流动导致客户流失",
+        "priority": "must",
+        "confidence": "high",
+        "source": { "type": "customer-stated", "detail": "客户原话：沉淀客户资源", "raw": null },
+        "status": "active",
+        "module": "CRM",
+        "relatedPainPoints": ["客户信息分散，无法形成企业级资产"],
+        "firstVersion": "v0.1",
+        "lastUpdated": "v0.1",
+        "history": []
+      },
+      {
+        "id": "REQ-003",
+        "category": "functional",
+        "title": "转化率与复购率追踪分析",
+        "description": "记录每个线索→商机→成交的转化路径，计算各阶段转化率；记录已成交客户的复购/增购行为，支持复购率统计与预测",
+        "priority": "should",
+        "confidence": "high",
+        "source": { "type": "customer-stated", "detail": "客户原话：提高转化率复购率", "raw": null },
+        "status": "active",
+        "module": "CRM",
+        "relatedPainPoints": ["无法量化评估销售效率"],
+        "firstVersion": "v0.1",
+        "lastUpdated": "v0.1",
+        "history": []
+      },
+      {
+        "id": "REQ-004",
+        "category": "functional",
+        "title": "设备与客户关联管理",
+        "description": "机床制造商销售+售后服务紧密关联，需在CRM中关联客户设备台账（机型、采购时间、维保状态），支持售后服务和再制造交叉销售机会识别",
+        "priority": "should",
+        "confidence": "low",
+        "source": { "type": "profile-inference", "detail": "齿轮机床单价高、售后依赖强、再制造业务存在，CRM需与设备台账联动", "raw": null },
+        "status": "active",
+        "module": "CRM",
+        "relatedPainPoints": ["再制造业务数字化机会"],
+        "firstVersion": "v0.1",
+        "lastUpdated": "v0.1",
+        "history": []
+      },
+      {
+        "id": "REQ-005",
+        "category": "functional",
+        "title": "报价与合同管理",
+        "description": "精密机床单台价格高，销售周期长（数月），需要管理多版本报价单、产品配置、审批流程，以及合同签署和执行进度追踪",
+        "priority": "should",
+        "confidence": "low",
+        "source": { "type": "profile-inference", "detail": "数控机床单台价格高、销售周期长是行业特点，报价和合同管理是B2B销售CRM标配", "raw": null },
+        "status": "active",
+        "module": "CRM",
+        "relatedPainPoints": [],
+        "firstVersion": "v0.1",
+        "lastUpdated": "v0.1",
+        "history": []
+      },
+      {
+        "id": "REQ-006",
+        "category": "functional",
+        "title": "销售管理驾驶舱",
+        "description": "面向销售主管的BI看板：展示团队整体业绩、商机漏斗、转化率趋势、客户跟进情况，支持按销售/产品/时间多维度下钻",
+        "priority": "must",
+        "confidence": "low",
+        "source": { "type": "profile-inference", "detail": "客户明确提出让主管看清销售情况，需对应数据可视化能力", "raw": null },
+        "status": "active",
+        "module": "CRM",
+        "relatedPainPoints": [],
+        "firstVersion": "v0.1",
+        "lastUpdated": "v0.1",
+        "history": []
+      }
+    ],
+    "users": [
+      { "role": "销售总监/销售主管", "description": "掌握团队整体销售情况，需看全局数据和每个销售的动作", "mainTasks": ["查看团队销售看板", "审批报价单/合同", "分配线索和商机"] },
+      { "role": "一线销售", "description": "日常客户跟进，执行销售流程", "mainTasks": ["录入/维护客户信息", "记录商机进展", "发起报价和合同"] },
+      { "role": "售后服务/再制造部门", "description": "设备维保和再制造业务人员", "mainTasks": ["关联查看客户设备台账", "识别再制造商机"] }
+    ],
+    "scope": {
+      "inScope": ["销售流程标准化（线索→商机→报价→合同→回款）", "客户信息统一管理", "销售管理驾驶舱", "转化率与复购率追踪"],
+      "outOfScope": ["ERP系统替换", "生产MES系统", "财务管理系统对接"],
+      "futureScope": ["设备IoT物联", "预测性维护", "工艺知识库"],
+      "phases": ["第一期：CRM核心（客户管理+销售过程+看板）", "第二期：报价合同+移动端", "第三期：设备关联+复购预测"],
+      "priorityMatrix": []
+    },
+    "constraints": {
+      "budget": { "total": "", "flexibility": "未知" },
+      "timeline": { "expectedStart": "", "expectedGoLive": "" }
+    },
+    "successCriteria": {},
+    "risksAndAssumptions": {
+      "risks": [
+        { "description": "销售不愿放弃已有的微信/Excel习惯，系统推行阻力大", "impact": "高", "mitigation": "方案需包含变更管理和用户培训计划，强调数据资产归属企业而非个人" },
+        { "description": "客户可能有在用的其他系统（ERP等），CRM需与现有系统打通", "impact": "中", "mitigation": "了解现有IT架构，确认集成需求和API开放情况" }
+      ],
+      "assumptions": [
+        { "description": "长机科技目前没有统一的CRM系统或CRM使用程度很低", "impact": "高" },
+        { "description": "销售总监有推动系统实施的决策影响力", "impact": "中" },
+        { "description": "CCMT展会后客户可能进入需求确认阶段，有一定紧迫性", "impact": "中" }
+      ],
+      "dependencies": []
+    },
+    "solutionDirection": {
+      "overallApproach": "以CRM为核心，分期建设：第一期解决客户核心痛点（流程标准化+主管可视+客户资产沉淀），第二三期逐步扩展",
+      "recommendedApproach": null,
+      "technicalDirection": null,
+      "implementationStrategy": null,
+      "nextSteps": []
+    },
+    "pendingQuestions": [
+      {
+        "id": "PQ-001",
+        "category": "预算",
+        "priority": "必问",
+        "stage": "screening",
+        "question": "您对这套CRM系统的预算大概是什么量级？有没有参考过其他产品？",
+        "purpose": "判断客户购买力和决策阶段",
+        "expectedDirection": "了解预算区间，指导方案选型",
+        "targetPerson": "销售总监",
+        "relatedNeedIds": ["REQ-001", "REQ-002", "REQ-006"],
+        "status": "pending",
+        "answer": null,
+        "resolvedInVersion": null
+      },
+      {
+        "id": "PQ-002",
+        "category": "业务",
+        "priority": "必问",
+        "stage": "screening",
+        "question": "目前销售团队大概多少人，日常是怎么管理客户信息的？",
+        "purpose": "了解现有销售流程和客户管理现状，推演切入方案",
+        "expectedDirection": "判断是新建CRM还是迁移现有数据",
+        "targetPerson": "销售总监",
+        "relatedNeedIds": ["REQ-001", "REQ-002"],
+        "status": "pending",
+        "answer": null,
+        "resolvedInVersion": null
+      },
+      {
+        "id": "PQ-003",
+        "category": "时间",
+        "priority": "必问",
+        "stage": "screening",
+        "question": "您希望系统大概什么时候能上线使用？",
+        "purpose": "判断紧迫度，指导实施周期规划",
+        "expectedDirection": "了解时间期望，评估scope",
+        "targetPerson": "销售总监",
+        "relatedNeedIds": ["REQ-001", "REQ-002", "REQ-006"],
+        "status": "pending",
+        "answer": null,
+        "resolvedInVersion": null
+      },
+      {
+        "id": "PQ-004",
+        "category": "技术",
+        "priority": "选问",
+        "stage": "deep-dive",
+        "question": "公司对数据部署方式有没有要求？比如必须本地部署，还是可以接受云端？",
+        "purpose": "判断技术方案方向（本地/SaaS/混合）",
+        "expectedDirection": "涉及技术架构选型",
+        "targetPerson": "销售总监或IT负责人",
+        "relatedNeedIds": ["REQ-001", "REQ-002"],
+        "status": "pending",
+        "answer": null,
+        "resolvedInVersion": null
+      },
+      {
+        "id": "PQ-005",
+        "category": "业务",
+        "priority": "选问",
+        "stage": "deep-dive",
+        "question": "目前客户的复购或增购场景主要是什么？是从哪些维度来评估复购率的？",
+        "purpose": "细化REQ-003的复购率追踪指标设计",
+        "expectedDirection": "明确复购定义（设备维保到期再购/新产品增购等）",
+        "targetPerson": "销售总监",
+        "relatedNeedIds": ["REQ-003", "REQ-004"],
+        "status": "pending",
+        "answer": null,
+        "resolvedInVersion": null
+      }
+    ],
+    "completionRate": {
+      "overall": 22,
+      "byCategory": { "business": 33, "functional": 15 },
+      "blockers": []
+    }
+  }
+}

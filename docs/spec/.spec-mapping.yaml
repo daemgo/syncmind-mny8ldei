@@ -1,0 +1,46 @@
+specHash: "spec-v1.0.0-2026-04-14"
+generatedAt: "2026-04-14T00:00:00+08:00"
+sourceMode: "spec"
+modules:
+  - moduleId: dashboard
+    moduleName: 销售管理驾驶舱
+    locked: false
+    files:
+      - src/routes/index.tsx
+  - moduleId: customers
+    moduleName: 客户管理
+    locked: false
+    files:
+      - src/routes/customers/index.tsx
+      - src/routes/customers/$id.tsx
+  - moduleId: opportunities
+    moduleName: 商机管理
+    locked: false
+    files:
+      - src/routes/opportunities/index.tsx
+      - src/routes/opportunities/$id.tsx
+  - moduleId: tasks
+    moduleName: 任务中心
+    locked: false
+    files:
+      - src/routes/tasks/index.tsx
+  - moduleId: public-pool
+    moduleName: 公海池（占位）
+    locked: false
+    files:
+      - src/routes/customers/public-pool/index.tsx
+  - moduleId: process-config
+    moduleName: 流程配置（占位）
+    locked: false
+    files:
+      - src/routes/process-config/index.tsx
+  - moduleId: users
+    moduleName: 员工管理（占位）
+    locked: false
+    files:
+      - src/routes/users/index.tsx
+  - moduleId: roles
+    moduleName: 角色权限（占位）
+    locked: false
+    files:
+      - src/routes/roles/index.tsx

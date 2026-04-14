@@ -41,3 +41,22 @@
 - 对"客户概况"和"整体思路"段落做人性化处理
 
 **待跟进**: 展会接触后确认关键决策人，安排详细调研
+
+---
+### 2026-04-14
+**Skills**: init-app
+**变更**: 基于 spec.md 重新生成完整前端 Demo（Mode A）
+
+- 系统：长机科技销售 CRM（宜昌长机科技齿轮机床行业）
+- 已生成模块：销售驾驶舱、客户管理（列表+360视图）、商机管理（列表+详情+阶段步骤）、任务中心
+- 新增数据层：`src/types/customer|opportunity|task.ts`，`src/mock/customer|opportunity|task.ts`，dict-data.ts 同步 spec 4.2 全字典
+- 占位页已创建：公海池、流程配置、员工管理、角色权限（菜单可见，待增量生成）
+
+**项目结构**:
+- 预置组件：src/components/layout/（app-shell、sidebar）、src/components/biz/（data-table、data-filter、form-dialog）
+- 根布局：src/routes/__root.tsx（AppShell + 8项菜单含分组）
+- 字典数据：src/lib/dict-data.ts（函数在 src/lib/dict.ts 已预置）
+- Dashboard：src/routes/index.tsx（4 stats + 阶段分布BarChart + 管道趋势LineChart + 业绩排名 + 近期商机）
+- 模块路由：src/routes/customers/ · src/routes/opportunities/ · src/routes/tasks/
+- Mock 数据：src/mock/customer|opportunity|task.ts（齿轮机床行业真实场景）
+- 映射文件：docs/spec/.spec-mapping.yaml

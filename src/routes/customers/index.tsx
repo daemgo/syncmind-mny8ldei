@@ -5,64 +5,49 @@ import { Plus } from "lucide-react"
 import { DataTable, type ColumnConfig } from "@/components/biz/data-table"
 import { DataFilter, type FilterField } from "@/components/biz/data-filter"
 import { FormDialog, type FormField } from "@/components/biz/form-dialog"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { useCrm } from "@/lib/crm-store"
-import type { Customer } from "@/types/customers"
-import { toast } from "sonner"
+import { customerMock } from "@/mock/customer"
+import type { Customer } from "@/types/customer"
 
 export const Route = createFileRoute("/customers/")({
   component: CustomersPage,
 })
 
 const columns: ColumnConfig<Customer>[] = [
-  { key: "code", label: "编号", type: "mono" },
-  { key: "name", label: "客户名称" },
-  { key: "industry", label: "行业", type: "badge", dictId: "dict-customer-industry" },
-  { key: "contact", label: "联系人" },
+  { key: "customerName", label: "客户名称" },
+  { key: "level", label: "客户级别", type: "badge", dictId: "dict-customer-level" },
+  { key: "industry", label: "所在行业" },
+  { key: "ownerName", label: "归属销售" },
   { key: "status", label: "状态", type: "badge", dictId: "dict-customer-status" },
-  { key: "stage", label: "商机阶段" },
-  { key: "revenue", label: "客户营收", type: "money", align: "right" },
-  { key: "lastFollowup", label: "最近跟进", type: "date" },
+  { key: "lastFollowUpAt", label: "最近跟进", type: "date" },
+  { key: "createdAt", label: "创建时间", type: "date" },
 ]
 
 const filterFields: FilterField[] = [
-  { key: "name", label: "客户名称", type: "text" },
+  { key: "customerName", label: "客户名称", type: "text" },
+  { key: "level", label: "客户级别", type: "select", dictId: "dict-customer-level" },
   { key: "status", label: "客户状态", type: "select", dictId: "dict-customer-status" },
-  { key: "industry", label: "所属行业", type: "select", dictId: "dict-customer-industry" },
 ]
 
 const formFields: FormField[] = [
-  { key: "name", label: "客户名称", type: "text", required: true },
-  { key: "contact", label: "联系人", type: "text" },
-  { key: "phone", label: "联系电话", type: "text" },
-  { key: "email", label: "邮箱", type: "text" },
-  { key: "region", label: "地区", type: "text" },
-  { key: "industry", label: "行业", type: "select", dictId: "dict-customer-industry" },
-  { key: "status", label: "客户状态", type: "select", dictId: "dict-customer-status" },
-  { key: "stage", label: "商机阶段", type: "text" },
-  { key: "employees", label: "员工人数", type: "number" },
-  { key: "revenue", label: "客户营收 (元)", type: "number" },
-  { key: "description", label: "客户描述", type: "textarea", fullWidth: true },
+  { key: "customerName", label: "客户名称", type: "text", required: true },
+  { key: "shortName", label: "客户简称", type: "text" },
+  { key: "level", label: "客户级别", type: "select", dictId: "dict-customer-level", required: true },
+  { key: "industry", label: "所在行业", type: "text" },
+  { key: "region", label: "所在地区", type: "text" },
+  { key: "employeeCount", label: "员工规模", type: "text" },
+  { key: "registeredCapital", label: "注册资本（万元）", type: "number" },
+  { key: "creditCode", label: "统一信用代码", type: "text" },
+  { key: "address", label: "详细地址", type: "textarea", fullWidth: true },
 ]
 
 function CustomersPage() {
   const navigate = useNavigate()
-  const { customers, addCustomer, updateCustomer, deleteCustomer } = useCrm()
+  const [data] = useState(customerMock)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editingItem, setEditingItem] = useState<Customer | undefined>()
-  const [deletingItem, setDeletingItem] = useState<Customer | undefined>()
   const [filters, setFilters] = useState<Record<string, string>>({})
 
-  const filtered = customers.filter((item) => {
+  const filtered = data.filter((item) => {
     return Object.entries(filters).every(([key, val]) => {
       if (!val) return true
       const fieldVal = String((item as Record<string, unknown>)[key] ?? "")
@@ -70,29 +55,12 @@ function CustomersPage() {
     })
   })
 
-  function handleSubmit(formData: Record<string, string>) {
-    if (editingItem) {
-      updateCustomer(editingItem.id, formData)
-      toast.success("客户信息已更新")
-    } else {
-      addCustomer(formData)
-      toast.success("客户已创建")
-    }
-  }
-
-  function handleDelete() {
-    if (!deletingItem) return
-    deleteCustomer(deletingItem.id)
-    toast.success(`客户「${deletingItem.name}」已删除`)
-    setDeletingItem(undefined)
-  }
-
   return (
     <div className="space-y-6 p-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">客户管理</h1>
-          <p className="text-muted-foreground text-sm mt-1">管理所有客户信息与商机状态</p>
+          <p className="text-muted-foreground text-sm mt-1">企业级客户资源池 · 共 {data.length} 家客户</p>
         </div>
         <Button onClick={() => { setEditingItem(undefined); setDialogOpen(true) }}>
           <Plus className="mr-2 h-4 w-4" />新建客户
@@ -104,7 +72,6 @@ function CustomersPage() {
         data={filtered}
         onView={(item) => navigate({ to: "/customers/$id", params: { id: item.id } })}
         onEdit={(item) => { setEditingItem(item); setDialogOpen(true) }}
-        onDelete={(item) => setDeletingItem(item)}
       />
       <FormDialog
         entityName="客户"
@@ -112,27 +79,7 @@ function CustomersPage() {
         data={editingItem}
         open={dialogOpen}
         onOpenChange={setDialogOpen}
-        onSubmit={handleSubmit}
       />
-      <AlertDialog open={!!deletingItem} onOpenChange={(open) => !open && setDeletingItem(undefined)}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>确认删除</AlertDialogTitle>
-            <AlertDialogDescription>
-              确定删除客户「{deletingItem?.name}」？该操作不可撤销，关联的跟进记录不受影响。
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>取消</AlertDialogCancel>
-            <AlertDialogAction
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-              onClick={handleDelete}
-            >
-              删除
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   )
 }

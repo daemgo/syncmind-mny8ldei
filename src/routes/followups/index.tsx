@@ -5,8 +5,19 @@ import { Plus } from "lucide-react"
 import { DataTable, type ColumnConfig } from "@/components/biz/data-table"
 import { DataFilter, type FilterField } from "@/components/biz/data-filter"
 import { FormDialog, type FormField } from "@/components/biz/form-dialog"
-import { followupsMock } from "@/mock/followups"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+import { useCrm } from "@/lib/crm-store"
 import type { Followup } from "@/types/followups"
+import { toast } from "sonner"
 
 export const Route = createFileRoute("/followups/")({
   component: FollowupsPage,
@@ -30,33 +41,57 @@ const filterFields: FilterField[] = [
   { key: "stage", label: "商机阶段", type: "select", dictId: "dict-followup-stage" },
 ]
 
-const formFields: FormField[] = [
-  { key: "customerName", label: "客户名称", type: "text", required: true },
-  { key: "contact", label: "联系人", type: "text" },
-  { key: "type", label: "跟进方式", type: "select", dictId: "dict-followup-type" },
-  { key: "content", label: "跟进内容", type: "text" },
-  { key: "result", label: "跟进结果", type: "select", dictId: "dict-followup-result" },
-  { key: "stage", label: "商机阶段", type: "select", dictId: "dict-followup-stage" },
-  { key: "sales", label: "负责人", type: "text" },
-  { key: "amount", label: "商机金额", type: "number" },
-  { key: "nextDate", label: "下次跟进日期", type: "text" },
-  { key: "nextAction", label: "下次跟进事项", type: "text" },
-]
-
 function FollowupsPage() {
   const navigate = useNavigate()
-  const [data] = useState(followupsMock)
+  const { customers, followups, addFollowup, updateFollowup, deleteFollowup } = useCrm()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editingItem, setEditingItem] = useState<Followup | undefined>()
+  const [deletingItem, setDeletingItem] = useState<Followup | undefined>()
   const [filters, setFilters] = useState<Record<string, string>>({})
 
-  const filtered = data.filter((item) => {
+  const customerOptions = customers.map((c) => ({ label: c.name, value: c.id }))
+
+  const formFields: FormField[] = [
+    { key: "customerId", label: "客户名称", type: "select", required: true, options: customerOptions },
+    { key: "contact", label: "联系人", type: "text" },
+    { key: "type", label: "跟进方式", type: "select", dictId: "dict-followup-type" },
+    { key: "result", label: "跟进结果", type: "select", dictId: "dict-followup-result" },
+    { key: "stage", label: "商机阶段", type: "select", dictId: "dict-followup-stage" },
+    { key: "sales", label: "负责人", type: "text" },
+    { key: "amount", label: "商机金额 (元)", type: "number" },
+    { key: "followupAt", label: "跟进日期", type: "date" },
+    { key: "nextDate", label: "下次跟进日期", type: "date" },
+    { key: "nextAction", label: "下次跟进事项", type: "text" },
+    { key: "content", label: "跟进内容", type: "textarea", fullWidth: true },
+  ]
+
+  const filtered = followups.filter((item) => {
     return Object.entries(filters).every(([key, val]) => {
       if (!val) return true
       const fieldVal = String((item as Record<string, unknown>)[key] ?? "")
       return fieldVal.toLowerCase().includes(val.toLowerCase())
     })
   })
+
+  function handleSubmit(formData: Record<string, string>) {
+    const customer = customers.find((c) => c.id === formData.customerId)
+    const customerName = customer?.name ?? formData.customerId
+
+    if (editingItem) {
+      updateFollowup(editingItem.id, { ...formData, customerName })
+      toast.success("跟进记录已更新")
+    } else {
+      addFollowup({ ...formData, customerName })
+      toast.success("跟进记录已创建")
+    }
+  }
+
+  function handleDelete() {
+    if (!deletingItem) return
+    deleteFollowup(deletingItem.id)
+    toast.success(`跟进记录「${deletingItem.code}」已删除`)
+    setDeletingItem(undefined)
+  }
 
   return (
     <div className="space-y-6 p-6">
@@ -75,6 +110,7 @@ function FollowupsPage() {
         data={filtered}
         onView={(item) => navigate({ to: "/followups/$id", params: { id: item.id } })}
         onEdit={(item) => { setEditingItem(item); setDialogOpen(true) }}
+        onDelete={(item) => setDeletingItem(item)}
       />
       <FormDialog
         entityName="跟进记录"
@@ -82,7 +118,27 @@ function FollowupsPage() {
         data={editingItem}
         open={dialogOpen}
         onOpenChange={setDialogOpen}
+        onSubmit={handleSubmit}
       />
+      <AlertDialog open={!!deletingItem} onOpenChange={(open) => !open && setDeletingItem(undefined)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>确认删除</AlertDialogTitle>
+            <AlertDialogDescription>
+              确定删除「{deletingItem?.code}」的跟进记录？该操作不可撤销。
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>取消</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={handleDelete}
+            >
+              删除
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

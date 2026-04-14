@@ -2,9 +2,8 @@ import { createFileRoute } from "@tanstack/react-router"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { TrendingUp, TrendingDown, Users, Building, DollarSign, Phone, BarChart3 } from "lucide-react"
-import { customersMock } from "@/mock/customers"
-import { followupsMock } from "@/mock/followups"
+import { TrendingUp, Users, Building, DollarSign, Phone } from "lucide-react"
+import { useCrm } from "@/lib/crm-store"
 import { getDictLabel, getBadgeClassName } from "@/lib/dict"
 import {
   ChartContainer,
@@ -19,10 +18,13 @@ export const Route = createFileRoute("/")({
 })
 
 function Dashboard() {
-  const totalCustomers = customersMock.length
-  const activeCustomers = customersMock.filter((c) => c.status === "active").length
-  const totalRevenue = customersMock.reduce((sum, c) => sum + c.revenue, 0)
-  const totalAmount = followupsMock.reduce((sum, f) => sum + f.amount, 0)
+  const { customers, followups } = useCrm()
+  const totalCustomers = customers.length
+  const activeCustomers = customers.filter((c) => c.status === "active").length
+  const totalRevenue = customers.reduce((sum, c) => sum + c.revenue, 0)
+  const totalAmount = followups.reduce((sum, f) => sum + f.amount, 0)
+
+  const recentFollowups = [...followups].sort((a, b) => b.followupAt.localeCompare(a.followupAt)).slice(0, 5)
 
   const revenueData = [
     { month: "1月", revenue: 128, target: 120 },
@@ -37,8 +39,6 @@ function Dashboard() {
     { stage: "合同谈判", value: 3200000, color: "var(--color-chart-3)" },
     { stage: "已成交", value: 8900000, color: "var(--color-chart-4)" },
   ]
-
-  const recentFollowups = followupsMock.slice(0, 5)
 
   const chartConfig = {
     revenue: { label: "实际营收", color: "var(--color-chart-1)" },

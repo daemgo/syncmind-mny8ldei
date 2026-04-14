@@ -19,10 +19,14 @@ export interface FormField {
   key: string
   label: string
   type: "text" | "textarea" | "number" | "select" | "date"
-  /** For select type: dict ID to load options */
+  /** For select type: dict ID to load options (static) */
   dictId?: string
+  /** For select type: dynamic options (takes precedence over dictId) */
+  options?: { label: string; value: string }[]
   required?: boolean
   placeholder?: string
+  /** Span full width (col-span-2 in two-column layout) */
+  fullWidth?: boolean
 }
 
 interface FormDialogProps<T> {
@@ -73,21 +77,28 @@ export function FormDialog<T extends Record<string, unknown>>({
     onOpenChange(false)
   }
 
+  // Two-column layout for forms with more than 6 fields
+  const useGrid = fields.length > 6
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-lg">
+      <DialogContent className={useGrid ? "max-w-2xl" : "max-w-lg"}>
         <DialogHeader>
           <DialogTitle>{isEdit ? "编辑" : "新建"}{entityName}</DialogTitle>
         </DialogHeader>
 
-        <div className="grid gap-4 py-4">
-          {fields.map((field) => (
-            <div key={field.key} className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right text-sm">
-                {field.required && <span className="mr-0.5 text-destructive">*</span>}
-                {field.label}
-              </Label>
-              <div className="col-span-3">
+        <div className={`py-4 max-h-[65vh] overflow-y-auto pr-1 ${useGrid ? "grid grid-cols-2 gap-x-6 gap-y-4" : "grid gap-4"}`}>
+          {fields.map((field) => {
+            const isFullWidth = field.fullWidth || field.type === "textarea"
+            return (
+              <div
+                key={field.key}
+                className={`flex flex-col gap-1.5 ${useGrid && isFullWidth ? "col-span-2" : ""}`}
+              >
+                <Label className="text-sm">
+                  {field.required && <span className="mr-0.5 text-destructive">*</span>}
+                  {field.label}
+                </Label>
                 {field.type === "text" && (
                   <Input
                     value={formData[field.key] ?? ""}
@@ -120,12 +131,11 @@ export function FormDialog<T extends Record<string, unknown>>({
                       <SelectValue placeholder={field.placeholder ?? `请选择${field.label}`} />
                     </SelectTrigger>
                     <SelectContent>
-                      {field.dictId &&
-                        getDictOptions(field.dictId).map((opt) => (
-                          <SelectItem key={opt.value} value={opt.value}>
-                            {opt.label}
-                          </SelectItem>
-                        ))}
+                      {(field.options ?? (field.dictId ? getDictOptions(field.dictId) : [])).map((opt) => (
+                        <SelectItem key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 )}
@@ -137,8 +147,8 @@ export function FormDialog<T extends Record<string, unknown>>({
                   />
                 )}
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         <DialogFooter>

@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ArrowLeft, User, Phone, Calendar, DollarSign, MessageSquare, Clock } from "lucide-react"
-import { followupsMock } from "@/mock/followups"
-import { customersMock } from "@/mock/customers"
+import { useCrm } from "@/lib/crm-store"
 import { getDictLabel, getBadgeClassName } from "@/lib/dict"
 
 export const Route = createFileRoute("/followups/$id")({
@@ -13,10 +12,11 @@ export const Route = createFileRoute("/followups/$id")({
 
 function FollowupDetail() {
   const { id } = Route.useParams()
-  const item = followupsMock.find((d) => d.id === id)
+  const { followups, customers } = useCrm()
+  const item = followups.find((d) => d.id === id)
   if (!item) return <div className="p-6 text-muted-foreground">未找到该跟进记录</div>
 
-  const customer = customersMock.find((c) => c.id === item.customerId)
+  const customer = customers.find((c) => c.id === item.customerId)
 
   return (
     <div className="space-y-6 p-6">

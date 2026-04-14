@@ -5,8 +5,19 @@ import { Plus } from "lucide-react"
 import { DataTable, type ColumnConfig } from "@/components/biz/data-table"
 import { DataFilter, type FilterField } from "@/components/biz/data-filter"
 import { FormDialog, type FormField } from "@/components/biz/form-dialog"
-import { customersMock } from "@/mock/customers"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+import { useCrm } from "@/lib/crm-store"
 import type { Customer } from "@/types/customers"
+import { toast } from "sonner"
 
 export const Route = createFileRoute("/customers/")({
   component: CustomersPage,
@@ -34,26 +45,47 @@ const formFields: FormField[] = [
   { key: "contact", label: "联系人", type: "text" },
   { key: "phone", label: "联系电话", type: "text" },
   { key: "email", label: "邮箱", type: "text" },
+  { key: "region", label: "地区", type: "text" },
   { key: "industry", label: "行业", type: "select", dictId: "dict-customer-industry" },
   { key: "status", label: "客户状态", type: "select", dictId: "dict-customer-status" },
   { key: "stage", label: "商机阶段", type: "text" },
-  { key: "revenue", label: "客户营收", type: "number" },
+  { key: "employees", label: "员工人数", type: "number" },
+  { key: "revenue", label: "客户营收 (元)", type: "number" },
+  { key: "description", label: "客户描述", type: "textarea", fullWidth: true },
 ]
 
 function CustomersPage() {
   const navigate = useNavigate()
-  const [data] = useState(customersMock)
+  const { customers, addCustomer, updateCustomer, deleteCustomer } = useCrm()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editingItem, setEditingItem] = useState<Customer | undefined>()
+  const [deletingItem, setDeletingItem] = useState<Customer | undefined>()
   const [filters, setFilters] = useState<Record<string, string>>({})
 
-  const filtered = data.filter((item) => {
+  const filtered = customers.filter((item) => {
     return Object.entries(filters).every(([key, val]) => {
       if (!val) return true
       const fieldVal = String((item as Record<string, unknown>)[key] ?? "")
       return fieldVal.toLowerCase().includes(val.toLowerCase())
     })
   })
+
+  function handleSubmit(formData: Record<string, string>) {
+    if (editingItem) {
+      updateCustomer(editingItem.id, formData)
+      toast.success("客户信息已更新")
+    } else {
+      addCustomer(formData)
+      toast.success("客户已创建")
+    }
+  }
+
+  function handleDelete() {
+    if (!deletingItem) return
+    deleteCustomer(deletingItem.id)
+    toast.success(`客户「${deletingItem.name}」已删除`)
+    setDeletingItem(undefined)
+  }
 
   return (
     <div className="space-y-6 p-6">
@@ -72,6 +104,7 @@ function CustomersPage() {
         data={filtered}
         onView={(item) => navigate({ to: "/customers/$id", params: { id: item.id } })}
         onEdit={(item) => { setEditingItem(item); setDialogOpen(true) }}
+        onDelete={(item) => setDeletingItem(item)}
       />
       <FormDialog
         entityName="客户"
@@ -79,7 +112,27 @@ function CustomersPage() {
         data={editingItem}
         open={dialogOpen}
         onOpenChange={setDialogOpen}
+        onSubmit={handleSubmit}
       />
+      <AlertDialog open={!!deletingItem} onOpenChange={(open) => !open && setDeletingItem(undefined)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>确认删除</AlertDialogTitle>
+            <AlertDialogDescription>
+              确定删除客户「{deletingItem?.name}」？该操作不可撤销，关联的跟进记录不受影响。
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>取消</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={handleDelete}
+            >
+              删除
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

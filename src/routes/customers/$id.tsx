@@ -1,12 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Separator } from "@/components/ui/separator"
 import { ArrowLeft, Building2, Phone, Mail, MapPin, Users, DollarSign, Calendar } from "lucide-react"
-import { customersMock } from "@/mock/customers"
-import { followupsMock } from "@/mock/followups"
+import { useCrm } from "@/lib/crm-store"
 import { getDictLabel, getBadgeClassName } from "@/lib/dict"
 import type { Customer } from "@/types/customers"
 
@@ -16,10 +15,11 @@ export const Route = createFileRoute("/customers/$id")({
 
 function CustomerDetail() {
   const { id } = Route.useParams()
-  const customer = customersMock.find((d) => d.id === id)
+  const { customers, followups } = useCrm()
+  const customer = customers.find((d) => d.id === id)
   if (!customer) return <div className="p-6 text-muted-foreground">未找到该客户</div>
 
-  const relatedFollowups = followupsMock.filter((f) => f.customerId === customer.id)
+  const relatedFollowups = followups.filter((f) => f.customerId === customer.id)
 
   return (
     <div className="space-y-6 p-6">

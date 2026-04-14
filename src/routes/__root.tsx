@@ -2,7 +2,9 @@ import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-r
 import "@/styles/globals.css";
 import { AppShell } from "@/components/layout/app-shell"
 import type { MenuItem } from "@/components/layout/sidebar"
-import { LayoutDashboard, Users, Phone, BarChart3 } from "lucide-react"
+import { LayoutDashboard, Users, Phone } from "lucide-react"
+import { CrmProvider } from "@/lib/crm-store"
+import { Toaster } from "@/components/ui/sonner"
 
 const menuItems: MenuItem[] = [
   { label: "数据看板", href: "/", icon: LayoutDashboard },
@@ -44,9 +46,12 @@ function RootComponent() {
         <HeadContent />
       </head>
       <body className="antialiased" style={{ fontFamily: "'Inter', 'Noto Sans SC', system-ui, sans-serif" }}>
-        <AppShell title="CRM 系统" items={menuItems}>
-          <Outlet />
-        </AppShell>
+        <CrmProvider>
+          <AppShell title="CRM 系统" items={menuItems}>
+            <Outlet />
+          </AppShell>
+          <Toaster richColors position="top-right" />
+        </CrmProvider>
         <Scripts />
         <NavBridgeScript />
       </body>

@@ -1,1 +1,107 @@
-{}
+{
+  "companyName": "温州市国彩真空科技有限公司",
+  "shortName": "国彩真空",
+  "summary": "温州地区专注于真空技术产品制造与系统集成的中小企业，服务于新能源、电子、军工等多行业的真空应用需求。",
+  "industry": "制造业",
+  "subIndustry": "真空技术/通用设备制造",
+  "scale": "小微企业~中小型",
+  "mainBusiness": "真空泵、真空阀门、真空系统设备的研发、制造与销售，及相关技术支持服务",
+  "products": [
+    { "name": "真空泵设备", "description": "干式螺杆真空泵、旋片泵、罗茨泵等常规及高端真空获得设备" },
+    { "name": "真空系统集成", "description": "针对半导体、新能源、军工等行业的定制化真空系统设计与集成" },
+    { "name": "真空配件与耗材", "description": "密封件、阀门、法兰等配套部件" }
+  ],
+  "targetCustomers": ["新能源（锂电/光伏）企业", "半导体/电子制造商", "军工/航空航天单位", "科研院所", "食品医药包装企业"],
+  "businessModel": "B2B 设备销售 + 系统集成 + 售后服务",
+  "rating": "",
+  "tags": ["真空技术", "设备制造", "定制集成", "温州制造", "新能源配套", "B2B", "系统集成"],
+  "website": null,
+  "slogan": null,
+  "isListed": false,
+  "stockCode": null,
+  "revenueScale": "数千万元~亿元级（推估）",
+  "registration": {
+    "registeredName": null,
+    "registeredCapital": null,
+    "paidCapital": null,
+    "establishedDate": null,
+    "legalRepresentative": null,
+    "businessStatus": null,
+    "shareholders": [],
+    "branchCount": null,
+    "interpretation": "工商信息无法通过公开渠道获取，建议通过天眼查或启信宝付费查询。该公司名称中含\"科技\"字样，可能为近年新设或由原制造企业转型而来。",
+    "organizationType": "未知（建议实地拜访确认）",
+    "keyFindings": [
+      "公司名称含\"科技\"而非\"实业\"，或反映近年来向技术/研发方向转型的意图，值得在拜访中确认其技术积累深度",
+      "温州地区的真空技术类企业多集中于低端市场，若已切入新能源/半导体赛道则是明显差异化信号",
+      "无上市信息，短期内无公开财报可查，需通过现场沟通了解真实营收和资金状况"
+    ]
+  },
+  "organization": {
+    "type": "创业型~职业化管理过渡期（推估）",
+    "decisionChain": "老板/总经理主导 → 技术负责人评估 → 采购执行。中小企业决策链短，老板意志占主导，技术可行性由工程师把关。",
+    "keyPersons": [
+      { "name": "（未知）", "title": "总经理/创始人" },
+      { "name": "（未知）", "title": "技术负责人/总工程师" },
+      { "name": "（未知）", "title": "销售负责人" }
+    ],
+    "salesStrategy": "以技术交流打开局面，重点展示真空系统节能、稳定性等实际运行指标；老板关注投资回报和行业口碑，技术负责人关注参数匹配度；初次拜访以建立信任、了解产线现状为主，不急于推全系统方案。"
+  },
+  "timing": {
+    "phase": "需求潜伏期~主动探索期",
+    "analysisBasis": [
+      "新能源（锂电、光伏）行业2024-2026年扩产高峰，真空设备作为关键配套需求旺盛，国彩若已切入此赛道正处于业务上升期",
+      "真空设备属于周期性较长（5-8年更新换代）的固定资产，当前节点正值多行业产能扩张后的存量设备更新潮",
+      "制造业数字化趋势持续，但真空设备企业信息化水平普遍偏低，MES/QMS等系统渗透率不高"
+    ],
+    "entryStrategy": "以\"设备运行数据监控+OEE分析\"作为切入点，比直接推全厂MES更易被接受；强调设备数据如何帮助客户减少停机、提升产能，用于销售谈资。",
+    "urgency": "中期（6-12个月）窗口期，新能源客户有预算且有明确改善需求；如竞争对手已布局需加快接触节奏"
+  },
+  "hiring": {
+    "keySignals": []
+  },
+  "competition": {
+    "industryRank": null,
+    "marketShare": null,
+    "mainCompetitors": ["中科科仪（北京）", "淄博真空设备厂", "杭州爱发科（Ulvac代理）", "上海真空泵厂商群体"],
+    "knownClients": []
+  },
+  "riskAndPolicy": {
+    "legal": {
+      "lawsuitCount": null,
+      "executedPerson": false,
+      "dishonestPerson": false,
+      "businessAnomalies": [],
+      "equityFreeze": false
+    },
+    "policy": {
+      "isSpecializedSME": false,
+      "smeLevel": "",
+      "isHighTech": false,
+      "digitalTransformation": false,
+      "esgGreen": false
+    }
+  },
+  "painPoints": [
+    { "area": "设备管理", "description": "真空泵等关键设备故障突发，维护依赖老员工经验，OEE数据缺失，无法量化设备利用率和损耗成本", "severity": "高" },
+    { "area": "生产管理", "description": "订单/排产靠人工协调，插单频繁时内部沟通成本高，生产进度对客户不透明", "severity": "中" },
+    { "area": "质量管理", "description": "真空腔体、密封件等关键部件质检依赖人工记录，批次追溯困难，客诉处理缺乏数据支撑", "severity": "中" },
+    { "area": "成本核算", "description": "设备制造按订单生产，项目成本归集粗放，报价时利润测算依赖经验，缺乏精细化数据", "severity": "中" },
+    { "area": "供应链管理", "description": "进口真空元器件（如德国、日本品牌）采购周期长，库存管理缺乏预测，缺料影响交付", "severity": "低~中" }
+  ],
+  "opportunities": [
+    { "area": "设备物联网+预测维护", "description": "为真空设备加装传感器和数据采集模块，实现运行状态实时监控和故障预警，切入成本低、价值感知强", "likelihood": "高" },
+    { "area": "OEE生产效率管理", "description": "针对其下游新能源客户的质量审核要求，提供设备OEE数据看板，成为客户供应链合规的配合方", "likelihood": "中" },
+    { "area": "数字化售后服务", "description": "通过设备数据远程诊断提升售后响应速度，从\"卖设备\"延伸为\"卖设备+服务订阅\"，提升客户粘性和收入稳定性", "likelihood": "中" }
+  ],
+  "analysisPath": "B",
+  "confidence": 0.35,
+  "metadata": {
+    "createdAt": "2026-04-20",
+    "updatedAt": "2026-04-20",
+    "createdBy": "AI",
+    "version": "1.0",
+    "sources": [],
+    "confidence": 0.35
+  }
+}

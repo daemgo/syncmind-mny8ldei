@@ -1,6 +1,6 @@
-> **版本**：1.0.0 | **状态**：draft | **更新时间**：2026-04-14T10:00:00+08:00
->
-> **来源方案**：normal 场景 v1.0.0 版本
+> **版本**：1.0.0 | **状态**：draft | **更新时间**：2026-04-20
+
+> **来源方案**：normal 场景 v0.1 版本
 
 ---
 
@@ -9,9 +9,7 @@
 本文档使用以下标准值：
 - **布局类型**: `list` / `detail` / `form` / `dashboard` / `steps` / `custom`
 - **区块类型**: `table` / `form` / `card` / `cards` / `chart` / `tabs` / `steps` / `timeline` / `description` / `statistic` / `custom`
-- **字段类型**: `text` / `textarea` / `number` / `money` / `date` / `select` / `multiselect` / `switch` / `upload` 等
-- **列类型**: `text` / `number` / `money` / `date` / `datetime` / `tag` / `status` / `avatar` / `link` / `progress` / `action`
-- **操作行为**: `navigate` / `modal` / `drawer` / `action` / `download`
+- **字段类型**: `text` / `textarea` / `number` / `money` / `percent` / `date` / `datetime` / `daterange` / `select` / `multiselect` / `switch` / `upload` 等
 
 ---
 
@@ -19,37 +17,41 @@
 
 ### 1.1 项目背景
 
-宜昌长机科技做全系列齿轮加工机床，数控插齿机国内市场占有率约70%，同时提供设备再制造服务。在离散型多品种小批量的生产模式下，销售团队目前面临三个现实问题：客户资源分散在各个销售手里、跟进过程不透明、复购机会难以追踪。公司已有国家级5G工厂，这次是要把销售管理这块短板补上。系统必须本地部署，数据不出厂区。
+国彩真空在温州从事真空镀膜设备制造，主打卷对卷磁控溅射镀膜机、PVD离子镀膜机等非标定制设备，客户分布在包装、五金、眼镜镜片、电子元器件等行业。B2B 销售，订单基本为定制，销售链条长、节点多。当前客户信息和订单跟进完全依赖销售个人手机和微信，老板看不到全局。本期聚焦搭建统一的客户和订单管理体系，让老板和销售都能"看得见"。
 
 ### 1.2 产品目标
 
-- 建立企业级客户资源池，将客户资产从"个人资源"转为"企业资源"，降低离职风险
-- 实现线索到回款全流程标准化管理，统一销售动作，减少关键动作遗漏
-- 为销售主管提供可视化驾驶舱，实时掌握团队商机状态，支持数据驱动决策
-- 支持基于设备生命周期的增值服务延伸（本期不做）
+- 建立统一的客户档案库，客户信息不随销售离职而流失
+- 实现商机全生命周期管理，提高销售转化率
+- 打通订单全流程，让交期状态对客户和销售均透明可见
+- 老板随时通过手机查看签约金额、回款进度、商机 Pipeline 和订单交付情况
 
 ### 1.3 目标用户
 
 | 角色 | 描述 | 核心诉求 |
 |------|------|----------|
-| 销售人员 | 一线销售，使用CRM记录日常客户跟进 | 快速录入客户、快速查重、减少重复填报、商机状态一目了然 |
-| 销售主管 | 团队管理者，关注全局商机进展 | 实时看全局漏斗、识别高风险商机、跨团队协同 |
-| 管理层 | 高层领导，关注整体业绩 | 核心指标看板、业绩排名、预测营收 |
-| 售前工程师 | 配合销售提供技术支持 | 及时收到协同通知、查看技术交流任务 |
+| 老板 | 公司创始人/管理者 | 随时看到全局：所有客户、所有订单、团队业绩 |
+| 销售 | 一线业务人员 | 管理自己负责的客户和商机，减少催单答复工作 |
+| 客户 | 采购/技术负责人 | 随时查看订单当前状态，减少反复催单 |
 
 ### 1.4 范围定义
 
 **本期包含：**
-- 客户管理模块（企业级客户库、客户360视图、公海池）
-- 商机管理模块（商机全生命周期、阶段推进留痕）
-- 销售流程管理模块（标准化流程引擎、任务清单驱动、协同工作流）
-- 销售管理驾驶舱（核心指标看板、商机漏斗分析、销售排名）
+
+- 客户管理：统一档案库、公海池机制、查重与合并、流失预警
+- 商机管理：自定义销售阶段、商机卡片、转化漏斗视图、超期预警
+- 订单管理：全流程状态机、非标设备特殊字段、客户查看端、节点通知
+- 老板销售看板：核心指标卡、商机 Pipeline、订单交付进度、销售排名
+- 移动端适配：微信小程序或 H5 页面，支持手机端操作
 
 **本期不含：**
-- 报价单与合同管理模块（P2功能，纳入第二阶段）
-- 设备台账关联模块（P2功能，纳入第三阶段）
-- ERP、财务系统深度集成（第三阶段根据接口情况推进）
-- 移动端原生App（Web端全功能覆盖）
+
+- 非标设备报价管理（P1 需求，报价依赖经验，一期待业务模式稳定后再扩展）
+- 回款与应收账款跟踪（P1 需求，一期聚焦客户和订单主流程，资金模块后续扩展）
+- 合同全生命周期管理（P1 需求，与订单管理强关联，一期简化处理）
+- 客户运营与复购提醒（P2 需求，需先积累足够客户数据后再启用）
+- 生产排产与工序管理（非标设备排产逻辑复杂，需单独评估，一期仅管理订单状态）
+- 出厂质检记录数字化（现场扫码等硬件配套，一期待人工记录）
 
 ---
 
@@ -57,460 +59,528 @@
 
 ### 2.1 站点地图
 
-- 📁 销售管理驾驶舱（icon: LayoutDashboard）
-  - 核心指标看板 → `/dashboard`
-- 📁 客户管理（icon: Users）
+- 销售看板（icon: LayoutDashboard）
+  - 首页看板 → `/dashboard`
+- 客户管理（icon: Users）
   - 客户列表 → `/customers`
-  - 客户详情 → `/customers/:id`
   - 公海池 → `/customers/public-pool`
-- 📁 商机管理（icon: TrendingUp）
+  - 客户详情 → `/customers/:id`
+  - 新建/编辑客户 → `/customers/new`、`/customers/:id/edit`
+- 商机管理（icon: TrendingUp）
   - 商机列表 → `/opportunities`
   - 商机详情 → `/opportunities/:id`
   - 新建商机 → `/opportunities/new`
-- 📁 销售流程（icon: GitBranch）
-  - 任务中心 → `/tasks`
-  - 流程配置 → `/process-config`（管理员）
-- 📁 系统管理（icon: Settings）（管理员可见）
-  - 组织架构 → `/org`
-  - 员工管理 → `/users`
-  - 角色权限 → `/roles`
+- 订单管理（icon: ClipboardList）
+  - 订单列表 → `/orders`
+  - 订单详情 → `/orders/:id`
+  - 新建订单 → `/orders/new`
 
 ### 2.2 导航结构
 
 | 一级菜单 | 二级菜单 | 路由 | 说明 |
 |----------|----------|------|------|
-| 销售管理驾驶舱 | 核心指标看板 | `/dashboard` | 默认首页，含统计卡片、漏斗图、业绩排行 |
-| 客户管理 | 客户列表 | `/customers` | 统一客户库，含筛选、查重、分配 |
-| 客户管理 | 公海池 | `/customers/public-pool` | 释放客户池，超期未跟进自动入池 |
-| 商机管理 | 商机列表 | `/opportunities` | 全生命周期商机管理，含阶段筛选 |
-| 销售流程 | 任务中心 | `/tasks` | 流程待办任务清单，支持认领和完成 |
-| 销售流程 | 流程配置 | `/process-config` | 销售流程模板配置（管理员） |
-| 系统管理 | 员工管理 | `/users` | 员工账号管理 |
-| 系统管理 | 角色权限 | `/roles` | RBAC角色与权限配置 |
+| 销售看板 | 首页看板 | `/dashboard` | 老板视图，展示核心业绩指标 |
+| 客户管理 | 客户列表 | `/customers` | 销售查看和编辑负责的客户 |
+| 客户管理 | 公海池 | `/customers/public-pool` | 未分配客户统一入口 |
+| 商机管理 | 商机列表 | `/opportunities` | 所有商机的筛选和汇总 |
+| 订单管理 | 订单列表 | `/orders` | 所有订单的状态和进度管理 |
 
 ---
 
 #### 三、功能模块
 
-### 3.1 销售管理驾驶舱
+### 3.1 客户管理
 
-> 解决"老板看不到销售漏斗全貌"的问题。提供核心指标可视化和业绩追踪，让管理层用数据驱动决策。
+> 客户信息分散在销售个人手机中，离职即流失。本模块将客户档案集中入库，通过公海池机制避免撞单，沉淀企业客户资产。
 
-#### 3.1.1 驾驶舱首页
-
-**路由**：`/dashboard`
-**布局**：`dashboard`
-**描述**：销售核心指标概览与业绩排名主页
-
-##### 统计概览（statistic）
-
-| 指标 | fieldKey | 说明 |
-|------|----------|------|
-| 线索总量 | totalLeads | 统计周期内新增线索数 |
-| 商机总量 | totalOpportunities | 当前在跟商机数 |
-| 赢单金额 | wonAmount | 统计周期内成交金额 |
-| 赢单率 | winRate | 赢单数/输单数赢单百分比 |
-| 平均商机周期 | avgOpportunityCycle | 从线索到赢单平均天数 |
-| 预测营收 | predictedRevenue | 当前在跟商机加权预测金额 |
-
-##### 商机漏斗（chart）
-
-| 图表 | 类型 | 数据说明 |
-|------|------|----------|
-| 商机阶段漏斗 | funnel | 各阶段商机数量，识别转化瓶颈 |
-
-##### 业绩排名（table）
-
-| 列名 | fieldKey | 列类型 | 可排序 | 说明 |
-|------|----------|--------|--------|------|
-| 排名 | rank | number | 否 | 自动序号 |
-| 销售人员 | ownerName | avatar | 否 | 姓名+头像 |
-| 商机数 | opportunityCount | number | 是 | 当前在跟商机总数 |
-| 赢单金额 | wonAmount | money | 是 | 本周期赢单金额 |
-| 赢单率 | winRate | percent | 是 | 赢单百分比 |
-
-##### 近期活跃商机（table）
-
-| 列名 | fieldKey | 列类型 | 可排序 | 说明 |
-|------|----------|--------|--------|------|
-| 商机名称 | opportunityName | link | 否 | 跳转商机详情 |
-| 所属客户 | customerName | text | 否 | 客户名称 |
-| 当前阶段 | stage | tag | 否 | dict-opportunity-stage |
-| 金额 | amount | money | 否 | 商机金额 |
-| 更新时间 | updatedAt | datetime | 是 | 最近一次状态变更时间 |
-
-##### 业务规则
-
-- 统计周期默认为本月，支持切换为本周/本月/本季度/本年
-- 漏斗图默认展示当前在跟商机各阶段分布
-- 业绩排名默认按赢单金额降序
-- 预测营收 = 各阶段商机金额 × 阶段赢率权重（待确认权重配置）
-
----
-
-### 3.2 客户管理模块
-
-> 解决"客户资源分散在各销售手里，离职即流失"的问题。将客户资产从个人资源变为企业资源，支持统一录入、查重和分配。
-
-#### 3.2.1 客户列表
+#### 3.1.1 客户列表页
 
 **路由**：`/customers`
 **布局**：`list`
-**描述**：企业级客户库，支持筛选、查重、新增和批量分配
+**描述**：展示全部客户列表，支持按行业、负责人筛选，支持新增客户。
 
 ##### 筛选条件（form）
 
 | 字段 | fieldKey | 类型 | 必填 | 说明 |
 |------|----------|------|------|------|
-| 客户名称 | customerName | text | 否 | 模糊搜索 |
-| 客户级别 | level | select | 否 | 选项来源: dict-customer-level |
-| 所在行业 | industry | select | 否 | 选项来源: dict-industry |
-| 归属销售 | ownerId | user | 否 | 销售人员筛选 |
-| 客户状态 | status | select | 否 | 选项来源: dict-customer-status |
+| 关键词 | keyword | text | 否 | 搜索客户名称、联系人 |
+| 行业 | industry | select | 否 | 选项来源: dict-industry |
+| 负责销售 | ownerId | select | 否 | 下拉选择销售人员 |
+| 客户等级 | level | select | 否 | 选项来源: dict-customer-level |
 
 ##### 数据列表（table）
 
 | 列名 | fieldKey | 列类型 | 可排序 | 说明 |
 |------|----------|--------|--------|------|
-| 客户名称 | customerName | link | 是 | 跳转客户详情 |
-| 客户级别 | level | tag | 否 | dict-customer-level |
-| 所在行业 | industry | text | 是 | 行业分类 |
-| 归属销售 | ownerName | avatar | 否 | 销售人员 |
-| 最近跟进 | lastFollowUpAt | datetime | 是 | 最近跟进时间 |
-| 创建时间 | createdAt | date | 是 | 录入时间 |
+| 客户名称 | name | text | 是 |  |
+| 行业 | industry | tag | 否 |  |
+| 联系人 | primaryContact | text | 否 | 主联系人姓名 |
+| 手机 | phone | text | 否 | 主联系人手机 |
+| 负责销售 | ownerName | text | 是 |  |
+| 客户等级 | level | tag | 否 |  |
+| 最近跟进 | lastFollowUpAt | date | 是 |  |
+| 操作 | actions | action | 否 | 查看、编辑 |
 
 ##### 操作
 
-| 按钮 | 类型 | 位置 | 行为 | 权限 |
-|------|------|------|------|------|
-| 新建客户 | primary | toolbar-right | navigate → `/customers/new` | 销售/管理员 |
-| 批量分配 | default | toolbar | modal 批量分配弹窗 | 管理员 |
-| 导出 | default | toolbar | download 导出Excel | 销售/管理员 |
+| 按钮 | 类型 | 位置 | 行为 |
+|------|------|------|------|
+| 新建客户 | primary | toolbar-right | navigate to `/customers/new` |
+| 导出 | default | toolbar-left | download |
+| 查看 | link | row | navigate to `/customers/:id` |
+| 编辑 | link | row | navigate to `/customers/:id/edit` |
 
 ##### 业务规则
 
-- 新建客户时自动触发查重提醒（同名/相似名称提示），避免撞单
-- 归属销售仅管理员可修改，普通销售只能查看
-- 客户列表默认只显示本人及下辖客户，管理员可看全部
+- 销售只能看到自己负责的客户（ownerId = 当前用户），老板可见全部
+- 新建客户时未指定负责人，自动进入公海池
+- 系统自动识别重复客户并提示合并
 
-#### 3.2.2 客户详情
+---
+
+#### 3.1.2 公海池页
+
+**路由**：`/customers/public-pool`
+**布局**：`list`
+**描述**：展示未分配负责人的客户列表，管理员可将客户分配给对应销售。
+
+##### 数据列表（table）
+
+| 列名 | fieldKey | 列类型 | 可排序 | 说明 |
+|------|----------|--------|--------|------|
+| 客户名称 | name | text | 是 |  |
+| 行业 | industry | tag | 否 |  |
+| 来源 | source | tag | 否 | 如展会录入、官网线索等 |
+| 进入公海时间 | pooledAt | date | 是 |  |
+| 操作 | actions | action | 否 | 分配、查看 |
+
+##### 操作
+
+| 按钮 | 类型 | 位置 | 行为 |
+|------|------|------|------|
+| 分配 | default | row | modal 选择负责销售 |
+| 批量分配 | default | toolbar | modal 批量选择负责销售 |
+| 查看 | link | row | navigate to `/customers/:id` |
+
+##### 业务规则
+
+- 仅老板和销售助理角色可访问公海池
+- 分配后客户从公海池移除，进入对应销售的客户列表
+
+---
+
+#### 3.1.3 客户详情页
 
 **路由**：`/customers/:id`
 **布局**：`detail`
-**描述**：客户360视图，汇聚基本信息、联系历史、商机记录
+**描述**：展示完整客户档案，含基本信息、联系人、沟通记录。
 
 ##### 基本信息（description）
 
 | 字段 | fieldKey | 类型 | 说明 |
 |------|----------|------|------|
-| 客户名称 | customerName | text | 企业全称 |
-| 客户简称 | shortName | text | 简称 |
-| 客户级别 | level | tag | dict-customer-level |
-| 所在行业 | industry | text | 行业分类 |
-| 注册资本 | registeredCapital | money | 万元 |
-| 员工规模 | employeeCount | text | 人数规模 |
-| 所在地区 | region | text | 省/市/区 |
-| 地址 | address | text | 详细地址 |
-| 统一社会信用代码 | creditCode | text | 营业执照号 |
+| 客户名称 | name | text |  |
+| 行业 | industry | select | 选项来源: dict-industry |
+| 规模 | scale | select | 选项来源: dict-company-scale |
+| 地址 | address | text |  |
+| 网址 | website | text |  |
+| 客户等级 | level | select | 选项来源: dict-customer-level |
+| 负责销售 | ownerName | text |  |
+| 创建时间 | createdAt | datetime |  |
 
 ##### 联系人列表（table）
 
 | 列名 | fieldKey | 列类型 | 可排序 | 说明 |
 |------|----------|--------|--------|------|
-| 姓名 | name | text | 否 | 联系人姓名 |
-| 部门 | department | text | 否 | 任职部门 |
-| 职位 | title | text | 否 | 职位 |
-| 手机 | mobile | phone | 否 | 脱敏展示 |
-| 邮箱 | email | email | 否 | 邮箱 |
-| 重要程度 | importance | tag | 否 | dict-contact-importance |
-| 操作 | - | action | 否 | 编辑/删除 |
+| 姓名 | name | text | 否 |  |
+| 职位 | title | text | 否 |  |
+| 手机 | phone | text | 否 |  |
+| 邮箱 | email | text | 否 |  |
+| 是否主联系人 | isPrimary | switch | 否 |  |
 
-##### 联系历史（timeline）
+##### 沟通记录（timeline）
 
 | 字段 | fieldKey | 类型 | 说明 |
 |------|----------|------|------|
-| 时间 | occurredAt | datetime | 联系时间 |
-| 类型 | type | tag | dict-followup-type |
-| 跟进人 | ownerName | text | 跟进人员 |
-| 内容 | content | text | 联系摘要 |
-
-##### 关联商机（table）
-
-| 列名 | fieldKey | 列类型 | 可排序 | 说明 |
-|------|----------|--------|--------|------|
-| 商机名称 | opportunityName | link | 否 | 跳转商机详情 |
-| 商机阶段 | stage | tag | 否 | dict-opportunity-stage |
-| 金额 | amount | money | 是 | 预估金额 |
-| 预计成交 | expectedCloseDate | date | 是 | 预计成交日期 |
-| 状态 | status | status | 否 | dict-opportunity-status |
+| 沟通时间 | occurredAt | datetime |  |
+| 沟通方式 | type | select | 电话/拜访/线上沟通/其他 |
+| 内容摘要 | summary | textarea |  |
+| 负责人 | ownerName | text |  |
 
 ##### 操作
 
 | 按钮 | 类型 | 位置 | 行为 |
 |------|------|------|------|
-| 编辑 | default | card-header | drawer 编辑表单 |
-| 新建联系人 | default | card-footer | modal 新建联系人 |
-| 新建商机 | primary | card-footer | navigate → `/opportunities/new?customerId=:id` |
+| 编辑 | default | toolbar | navigate to `/customers/:id/edit` |
+| 新建商机 | primary | card-footer | navigate to `/opportunities/new?customerId=:id` |
+| 新建订单 | default | card-footer | navigate to `/orders/new?customerId=:id` |
+| 添加联系人 | default | card | drawer 打开联系人表单 |
+| 记录跟进 | default | card | drawer 打开跟进记录表单 |
 
 ##### 业务规则
 
-- 联系人手机和邮箱敏感字段，仅归属销售和管理员可见
-- 删除联系人前检查是否有关联商机，如有则阻断
-
-#### 3.2.3 公海池
-
-**路由**：`/customers/public-pool`
-**布局**：`list`
-**描述**：超期未跟进客户自动释放进入公海，全体销售人员可认领
-
-##### 数据列表（table）
-
-| 列名 | fieldKey | 列类型 | 可排序 | 说明 |
-|------|----------|--------|--------|------|
-| 客户名称 | customerName | link | 否 | 跳转客户详情 |
-| 客户级别 | level | tag | 否 | dict-customer-level |
-| 上次跟进 | lastFollowUpAt | datetime | 是 | 末次跟进时间 |
-| 入池时间 | poolEnteredAt | datetime | 是 | 进入公海时间 |
-| 原归属销售 | previousOwnerName | text | 否 | 原归属人员 |
-
-##### 操作
-
-| 按钮 | 类型 | 位置 | 行为 |
-|------|------|------|------|
-| 认领 | primary | row | action 确认认领后绑定本人 |
-| 查看详情 | default | row-more | navigate 客户详情 |
-
-##### 业务规则
-
-- 客户连续 [X] 天未跟进记录（[X] 可配置，默认30天）自动入公海
-- 销售认领后自动成为归属销售
-- 公海客户其他人不可见，直到被认领或重新分配
+- 客户等级为高价值且超过 30 天未跟进，系统自动提醒重新分配
+- 主联系人手机和邮箱用于订单通知推送
 
 ---
 
-### 3.3 商机管理模块
+#### 3.1.4 新建/编辑客户页
 
-> 解决"商机状态不透明，主管无法实时掌握团队跟进进展"的问题。商机全生命周期支持自定义阶段，阶段变更全程留痕。
-
-#### 3.3.1 商机列表
-
-**路由**：`/opportunities`
-**布局**：`list`
-**描述**：全部商机列表，支持按阶段、归属销售、金额范围筛选
-
-##### 筛选条件（form）
-
-| 字段 | fieldKey | 类型 | 必填 | 说明 |
-|------|----------|------|------|------|
-| 商机名称 | opportunityName | text | 否 | 模糊搜索 |
-| 所属客户 | customerId | select | 否 | 客户筛选 |
-| 当前阶段 | stage | multiselect | 否 | 选项来源: dict-opportunity-stage |
-| 归属销售 | ownerId | user | 否 | 销售人员筛选 |
-| 预计成交日期 | expectedCloseDateRange | daterange | 否 | 成交日期区间 |
-| 金额范围 | amountRange | custom | 否 | 金额区间筛选 |
-
-##### 数据列表（table）
-
-| 列名 | fieldKey | 列类型 | 可排序 | 说明 |
-|------|----------|--------|--------|------|
-| 商机名称 | opportunityName | link | 否 | 跳转商机详情 |
-| 所属客户 | customerName | text | 否 | 客户名称 |
-| 当前阶段 | stage | tag | 是 | dict-opportunity-stage |
-| 金额 | amount | money | 是 | 预估金额 |
-| 预计成交 | expectedCloseDate | date | 是 | 预计成交日期 |
-| 归属销售 | ownerName | avatar | 否 | 销售人员 |
-| 更新时间 | updatedAt | datetime | 是 | 最近状态变更 |
-
-##### 操作
-
-| 按钮 | 类型 | 位置 | 行为 |
-|------|------|------|------|
-| 新建商机 | primary | toolbar-right | navigate → `/opportunities/new` |
-
-##### 业务规则
-
-- 商机列表默认按更新时间降序
-- 销售只可见本人商机，主管可见团队全部，管理员可见全部
-
-#### 3.3.2 商机详情
-
-**路由**：`/opportunities/:id`
-**布局**：`detail`
-**描述**：商机全生命周期详情，含阶段推进、跟进记录和任务
-
-##### 基本信息（description）
-
-| 字段 | fieldKey | 类型 | 说明 |
-|------|----------|------|------|
-| 商机名称 | opportunityName | text | 商机名称 |
-| 所属客户 | customerId | link | 跳转客户详情 |
-| 商机金额 | amount | money | 预估金额 |
-| 当前阶段 | stage | tag | dict-opportunity-stage |
-| 预计成交日期 | expectedCloseDate | date | 预计成交日期 |
-| 归属销售 | ownerId | user | 归属人员 |
-| 产品线 | productLine | multiselect | 选项来源: dict-product-line |
-| 创建时间 | createdAt | datetime | 创建时间 |
-| 更新时间 | updatedAt | datetime | 最近变更时间 |
-
-##### 阶段推进（steps）
-
-| 阶段 | 阶段ID | 说明 |
-|------|--------|------|
-| 线索 | lead | 待确认需求 |
-| 初步接触 | initialContact | 已建立联系 |
-| 技术交流 | technicalExchange | 售前介入中 |
-| 商务谈判 | businessNegotiation | 商务条款协商 |
-| 合同签订 | contractSigned | 已签合同 |
-| 回款 | paymentReceived | 回款完成 |
-
-##### 阶段变更记录（timeline）
-
-| 字段 | fieldKey | 类型 | 说明 |
-|------|----------|------|------|
-| 变更时间 | occurredAt | datetime | 变更时间戳 |
-| 操作人 | operatorName | text | 操作人员 |
-| 从 | fromStage | tag | 变更前阶段 |
-| 到 | toStage | tag | 变更后阶段 |
-| 备注 | remark | textarea | 变更说明 |
-
-##### 跟进记录（timeline）
-
-| 字段 | fieldKey | 类型 | 说明 |
-|------|----------|------|------|
-| 时间 | occurredAt | datetime | 跟进时间 |
-| 类型 | type | tag | dict-followup-type |
-| 跟进人 | ownerName | text | 跟进人员 |
-| 内容 | content | textarea | 跟进详情 |
-
-##### 关联任务（table）
-
-| 列名 | fieldKey | 列类型 | 可排序 | 说明 |
-|------|----------|--------|--------|------|
-| 任务名称 | taskName | text | 否 | 任务描述 |
-| 负责人 | assigneeName | avatar | 否 | 责任人 |
-| 截止日期 | deadline | date | 是 | 截止时间 |
-| 状态 | status | tag | 否 | dict-task-status |
-
-##### 操作
-
-| 按钮 | 类型 | 位置 | 行为 |
-|------|------|------|------|
-| 编辑 | default | card-header | drawer 编辑表单 |
-| 推进阶段 | primary | card-footer | modal 阶段推进确认（含备注） |
-| 新建跟进 | default | card-footer | modal 新建跟进记录 |
-| 新建任务 | default | card-footer | modal 新建待办任务 |
-
-##### 业务规则
-
-- 阶段推进强制填写变更说明（remark），避免空推进
-- 阶段变更时自动记录操作人和时间戳，不可修改
-- 归属销售可新建任务给自己或团队成员
-- 管理员可修改任意商机归属销售
-
-#### 3.3.3 新建商机
-
-**路由**：`/opportunities/new`
+**路由**：`/customers/new`、`/customers/:id/edit`
 **布局**：`form`
-**描述**：新建商机表单，必填字段最少化
+**描述**：新建或编辑客户档案。
 
 ##### 基本信息（form）
 
 | 字段 | fieldKey | 类型 | 必填 | 说明 |
 |------|----------|------|------|------|
-| 商机名称 | opportunityName | text | 是 | 商机名称 |
-| 所属客户 | customerId | select | 是 | 从客户列表选择，新建时自动跳转新建 |
-| 商机金额 | amount | money | 是 | 预估金额 |
-| 当前阶段 | stage | select | 是 | 默认"线索"，选项来源: dict-opportunity-stage |
-| 预计成交日期 | expectedCloseDate | date | 否 | 预计成交日期 |
-| 产品线 | productLine | multiselect | 否 | 选项来源: dict-product-line |
-| 备注 | remark | textarea | 否 | 初始备注 |
+| 客户名称 | name | text | 是 |  |
+| 行业 | industry | select | 否 | 选项来源: dict-industry |
+| 规模 | scale | select | 否 | 选项来源: dict-company-scale |
+| 地址 | address | text | 否 |  |
+| 网址 | website | text | 否 |  |
+| 客户等级 | level | select | 否 | 选项来源: dict-customer-level |
+| 负责销售 | ownerId | select | 否 | 为空则自动进入公海池 |
 
 ##### 操作
 
 | 按钮 | 类型 | 位置 | 行为 |
 |------|------|------|------|
-| 保存 | primary | form-footer | action 保存并跳转商机详情 |
-| 取消 | default | form-footer | navigate 返回商机列表 |
+| 保存 | primary | form-footer | action 保存并返回列表 |
+| 取消 | default | form-footer | navigate back |
 
 ##### 业务规则
 
-- 保存后自动创建初始跟进记录（来源：新建商机）
-- 商机阶段初始默认为"线索"
+- 必填字段：客户名称
+- ownerId 为空时提交后自动进入公海池并通知销售助理
+- 编辑时不允许将 ownerId 置空，防止客户意外进公海
 
 ---
 
-### 3.4 销售流程管理模块
+### 3.2 商机管理
 
-> 解决"销售过程依赖个人经验，标准化程度低"的问题。流程引擎预置齿轮机床行业模板，任务清单驱动关键动作落地。
+> 商机跟进靠记忆，转化率低，阶段不透明。本模块通过标准销售漏斗管理商机，自动统计各阶段转化率，超期未推进自动预警。
 
-#### 3.4.1 任务中心
+#### 3.2.1 商机列表页
 
-**路由**：`/tasks`
+**路由**：`/opportunities`
 **布局**：`list`
-**描述`：当前用户待办任务清单，支持认领和完成
+**描述**：展示所有商机，支持按阶段、负责人筛选，展示漏斗汇总数据。
 
 ##### 筛选条件（form）
 
 | 字段 | fieldKey | 类型 | 必填 | 说明 |
 |------|----------|------|------|------|
-| 任务类型 | taskType | multiselect | 否 | 选项来源: dict-task-type |
-| 关联对象 | relatedType | select | 否 | 关联商机/客户 |
-| 截止日期 | deadlineRange | daterange | 否 | 截止日期区间 |
-| 状态 | status | multiselect | 否 | 选项来源: dict-task-status |
+| 关键词 | keyword | text | 否 | 搜索商机名称或客户名 |
+| 销售阶段 | stage | select | 否 | 选项来源: dict-opportunity-stage |
+| 负责销售 | ownerId | select | 否 | 下拉选择 |
+| 预计签约日期 | expectedCloseDate | daterange | 否 |  |
 
 ##### 数据列表（table）
 
 | 列名 | fieldKey | 列类型 | 可排序 | 说明 |
 |------|----------|--------|--------|------|
-| 任务名称 | taskName | text | 否 | 任务描述 |
-| 类型 | taskType | tag | 否 | dict-task-type |
-| 来源 | sourceInfo | text | 否 | 关联对象名称 |
-| 负责人 | assigneeName | avatar | 否 | 责任人 |
-| 创建人 | creatorName | text | 否 | 任务发起人 |
-| 截止日期 | deadline | date | 是 | 截止时间 |
-| 状态 | status | tag | 否 | dict-task-status |
+| 商机名称 | name | text | 是 |  |
+| 关联客户 | customerName | link | 否 | 点击跳转客户详情 |
+| 负责销售 | ownerName | text | 是 |  |
+| 金额 | amount | money | 是 | 预计签约金额 |
+| 当前阶段 | stage | status | 是 | 颜色对应 dict-opportunity-stage |
+| 预计签约日期 | expectedCloseDate | date | 是 |  |
+| 跟进天数 | followUpDays | number | 否 | 超过阈值显示预警色 |
+| 操作 | actions | action | 否 | 查看、编辑 |
 
 ##### 操作
 
 | 按钮 | 类型 | 位置 | 行为 |
 |------|------|------|------|
-| 标记完成 | primary | row | action 确认完成 |
-| 认领任务 | default | row | action 认领后绑定本人 |
+| 新建商机 | primary | toolbar-right | navigate to `/opportunities/new` |
+| 漏斗视图 | default | toolbar-left | 切换为 chart 模式展示各阶段金额分布 |
 
 ##### 业务规则
 
-- 任务逾期但未完成，显示红色警示
-- 负责人完成任务后自动流转至下一节点（由流程引擎控制）
-- 协同任务（非本人创建但可认领）从公海池逻辑中产生
+- 销售只能看到自己负责的商机，老板可见全部
+- 跟进天数超过 15 天未变更阶段，行标红预警
+- 漏斗视图按阶段分组显示商机数量和金额汇总
 
-#### 3.4.2 流程配置
+---
 
-**路由**：`/process-config`
-**布局**：`list`
-**描述**：销售流程模板配置，管理员可按产品线差异化配置
+#### 3.2.2 商机详情页
 
-##### 流程模板列表（table）
+**路由**：`/opportunities/:id`
+**布局**：`detail`
+**描述**：展示商机完整信息，支持阶段推进和附件上传。
+
+##### 商机概览（description）
+
+| 字段 | fieldKey | 类型 | 说明 |
+|------|----------|------|------|
+| 商机名称 | name | text |  |
+| 关联客户 | customerName | link | 跳转客户详情 |
+| 负责销售 | ownerName | text |  |
+| 金额 | amount | money | 预计签约金额 |
+| 当前阶段 | stage | status | 选项来源: dict-opportunity-stage |
+| 预计签约日期 | expectedCloseDate | date |  |
+| 创建时间 | createdAt | datetime |  |
+| 更新时间 | updatedAt | datetime |  |
+
+##### 阶段历史（timeline）
+
+| 字段 | fieldKey | 类型 | 说明 |
+|------|----------|------|------|
+| 阶段名称 | stage | text |  |
+| 进入时间 | enteredAt | datetime |  |
+| 备注 | note | textarea |  |
+
+##### 附件（table）
 
 | 列名 | fieldKey | 列类型 | 可排序 | 说明 |
 |------|----------|--------|--------|------|
-| 模板名称 | templateName | link | 否 | 模板名称 |
-| 适用产品线 | productLine | tag | 否 | dict-product-line |
-| 阶段数 | stageCount | number | 否 | 阶段总数 |
-| 启用状态 | enabled | switch | 否 | 是否启用 |
-| 更新时间 | updatedAt | datetime | 是 | 最后修改时间 |
+| 文件名 | fileName | text | 否 |  |
+| 类型 | fileType | tag | 否 |  |
+| 上传时间 | uploadedAt | datetime | 否 |  |
+| 上传人 | uploaderName | text | 否 |  |
+| 操作 | actions | action | 否 | 下载、删除 |
 
 ##### 操作
 
 | 按钮 | 类型 | 位置 | 行为 |
 |------|------|------|------|
-| 编辑模板 | default | row-more | navigate → `/process-config/:id` |
-| 启用/停用 | default | row | action 切换启用状态 |
+| 编辑 | default | toolbar | navigate to `/opportunities/:id/edit` |
+| 推进阶段 | primary | card | modal 选择下一阶段 |
+| 上传附件 | default | card | upload 组件 |
+| 转为订单 | default | card-footer | navigate to `/orders/new?opportunityId=:id` |
 
 ##### 业务规则
 
-- 默认模板不可删除，可编辑
-- 启用状态切换需确认，影响使用该模板的新建商机
-- 流程变更不追溯已有商机
+- 阶段只能按预设顺序推进，不可跳阶段
+- 推进阶段时须填写备注，记录推进原因
+- 转为订单后，商机状态自动变更为已签约
+
+---
+
+#### 3.2.3 新建/编辑商机页
+
+**路由**：`/opportunities/new`、`/opportunities/:id/edit`
+**布局**：`form`
+**描述**：新建或编辑商机。
+
+##### 商机信息（form）
+
+| 字段 | fieldKey | 类型 | 必填 | 说明 |
+|------|----------|------|------|------|
+| 商机名称 | name | text | 是 |  |
+| 关联客户 | customerId | select | 是 | 下拉选择已有客户 |
+| 负责销售 | ownerId | select | 是 | 下拉选择 |
+| 金额 | amount | money | 是 | 预计签约金额 |
+| 销售阶段 | stage | select | 是 | 选项来源: dict-opportunity-stage，默认为需求确认 |
+| 预计签约日期 | expectedCloseDate | date | 否 |  |
+| 备注 | note | textarea | 否 |  |
+
+##### 操作
+
+| 按钮 | 类型 | 位置 | 行为 |
+|------|------|------|------|
+| 保存 | primary | form-footer | action 保存并返回列表 |
+| 取消 | default | form-footer | navigate back |
+
+##### 业务规则
+
+- 必填：商机名称、关联客户、负责销售、金额、阶段
+- 新建时默认阶段为需求确认
+
+---
+
+### 3.3 订单管理
+
+> 订单靠微信跟进，交期状态客户不知道，反复催单。本模块实现订单全流程可视化，关键节点自动通知，客户可通过链接查看当前状态。
+
+#### 3.3.1 订单列表页
+
+**路由**：`/orders`
+**布局**：`list`
+**描述**：展示所有订单，支持按状态和客户筛选，展示各状态订单数量汇总。
+
+##### 筛选条件（form）
+
+| 字段 | fieldKey | 类型 | 必填 | 说明 |
+|------|----------|------|------|------|
+| 关键词 | keyword | text | 否 | 搜索订单号或客户名 |
+| 订单状态 | status | select | 否 | 选项来源: dict-order-status |
+| 客户 | customerId | select | 否 | 下拉选择 |
+
+##### 数据列表（table）
+
+| 列名 | fieldKey | 列类型 | 可排序 | 说明 |
+|------|----------|--------|--------|------|
+| 订单号 | orderNo | text | 是 | 系统自动生成 |
+| 客户名称 | customerName | link | 否 | 点击跳转客户详情 |
+| 订单金额 | amount | money | 是 |  |
+| 当前状态 | status | status | 是 | 颜色对应 dict-order-status |
+| 签约日期 | signedAt | date | 是 |  |
+| 预计交付 | expectedDeliveryDate | date | 否 | 超期显示预警色 |
+| 操作 | actions | action | 否 | 查看 |
+
+##### 操作
+
+| 按钮 | 类型 | 位置 | 行为 |
+|------|------|------|------|
+| 新建订单 | primary | toolbar-right | navigate to `/orders/new` |
+| 导出 | default | toolbar-left | download |
+
+##### 业务规则
+
+- 销售只能看到自己客户的订单，老板可见全部
+- 预计交付日期超期未完成，行标红预警
+
+---
+
+#### 3.3.2 订单详情页
+
+**路由**：`/orders/:id`
+**布局**：`detail`
+**描述**：展示订单完整信息，包括状态流转节点和定制要求。
+
+##### 订单概览（description）
+
+| 字段 | fieldKey | 类型 | 说明 |
+|------|----------|------|------|
+| 订单号 | orderNo | text |  |
+| 关联客户 | customerName | link | 跳转客户详情 |
+| 关联商机 | opportunityName | link | 跳转商机详情，可为空 |
+| 订单金额 | amount | money |  |
+| 当前状态 | status | status | 选项来源: dict-order-status |
+| 签约日期 | signedAt | date |  |
+| 预计交付日期 | expectedDeliveryDate | date |  |
+| 实际交付日期 | actualDeliveryDate | date | 状态为验收后自动填充 |
+
+##### 状态流转（steps）
+
+| 字段 | fieldKey | 类型 | 说明 |
+|------|----------|------|------|
+| 当前步骤 | currentStep | text |  |
+| 步骤列表 | steps | steps | 签约→生产排期→生产中→质检→发货→安装调试→验收 |
+
+##### 非标设备信息（card）
+
+| 字段 | fieldKey | 类型 | 说明 |
+|------|----------|------|------|
+| 设备类型 | equipmentType | text | 如卷对卷磁控溅射镀膜机 |
+| 技术规格 | techSpecs | textarea | 非标定制技术要求 |
+| 定制要求 | customRequirements | textarea | 客户特殊定制需求 |
+| 验收标准 | acceptanceCriteria | textarea | 设备验收依据 |
+| 技术方案附件 | techAttachment | upload | 上传技术方案 PDF 等 |
+
+##### 操作
+
+| 按钮 | 类型 | 位置 | 行为 |
+|------|------|------|------|
+| 编辑 | default | toolbar | navigate to `/orders/:id/edit` |
+| 推进状态 | primary | card | modal 选择下一状态并填写备注 |
+| 复制查看链接 | default | card | 将客户查看端链接复制到剪贴板 |
+
+##### 业务规则
+
+- 状态只能按预设顺序推进，不可跳状态
+- 推进至发货时，系统自动生成客户查看链接并通知客户
+- 推进至验收时，自动填充 actualDeliveryDate
+
+---
+
+#### 3.3.3 新建/编辑订单页
+
+**路由**：`/orders/new`、`/orders/:id/edit`
+**布局**：`form`
+**描述**：新建或编辑订单。
+
+##### 订单信息（form）
+
+| 字段 | fieldKey | 类型 | 必填 | 说明 |
+|------|----------|------|------|------|
+| 关联客户 | customerId | select | 是 | 下拉选择已有客户 |
+| 关联商机 | opportunityId | select | 否 | 可选，关联后自动填充金额 |
+| 订单金额 | amount | money | 是 |  |
+| 签约日期 | signedAt | date | 是 |  |
+| 预计交付日期 | expectedDeliveryDate | date | 是 |  |
+
+##### 非标设备信息（form）
+
+| 字段 | fieldKey | 类型 | 必填 | 说明 |
+|------|----------|------|------|------|
+| 设备类型 | equipmentType | text | 否 |  |
+| 技术规格 | techSpecs | textarea | 否 |  |
+| 定制要求 | customRequirements | textarea | 否 |  |
+| 验收标准 | acceptanceCriteria | textarea | 否 |  |
+| 技术方案附件 | techAttachment | upload | 否 | 支持 PDF、图片等 |
+
+##### 操作
+
+| 按钮 | 类型 | 位置 | 行为 |
+|------|------|------|------|
+| 保存 | primary | form-footer | action 保存并返回列表 |
+| 取消 | default | form-footer | navigate back |
+
+##### 业务规则
+
+- 必填：关联客户、订单金额、签约日期、预计交付日期
+- 新建时默认状态为签约
+- 订单号由系统自动生成
+
+---
+
+### 3.4 老板销售看板
+
+> 老板看不到全局，不清楚团队在干什么。本模块在手机端集中展示核心业绩指标，让老板随时随地掌握全局。
+
+#### 3.4.1 首页看板
+
+**路由**：`/dashboard`
+**布局**：`dashboard`
+**描述**：老板视图首页，展示核心业绩指标和团队销售情况。
+
+##### 核心指标（statistic）
+
+| 指标 | fieldKey | 说明 |
+|------|----------|------|
+| 本月签约金额 | monthSignAmount | 当月签约订单金额合计 |
+| 本季度签约金额 | quarterSignAmount | 当季度签约订单金额合计 |
+| 本月回款金额 | monthCollectAmount | 当月回款金额合计 |
+| 应收账款总额 | totalReceivable | 所有未结清订单应收款合计 |
+
+##### 签约金额趋势（chart）
+
+| 图表 | 类型 | 数据说明 |
+|------|------|----------|
+| 近6个月签约金额趋势 | line | X轴为月份，Y轴为签约金额，按月统计 |
+
+##### 商机 Pipeline（chart）
+
+| 图表 | 类型 | 数据说明 |
+|------|------|----------|
+| 各阶段商机分布 | bar | 按销售阶段分组，显示商机数量和金额 |
+
+##### 订单交付进度（table）
+
+| 列名 | fieldKey | 列类型 | 可排序 | 说明 |
+|------|----------|--------|--------|------|
+| 状态 | status | status | 否 | 选项来源: dict-order-status |
+| 订单数 | orderCount | number | 是 | 该状态订单数量 |
+| 金额合计 | totalAmount | money | 是 | 该状态订单金额合计 |
+| 交付预警 | warningCount | number | 否 | 超期未交付订单数 |
+
+##### 销售排名（table）
+
+| 列名 | fieldKey | 列类型 | 可排序 | 说明 |
+|------|----------|--------|--------|------|
+| 排名 | rank | number | 是 | 按签约金额倒序 |
+| 编号 | repCode | text | 否 | 展示编号而非真实姓名 |
+| 本月签约 | monthSignAmount | money | 是 |  |
+| 商机数量 | opportunityCount | number | 否 | 当前跟进中商机数 |
+
+##### 业务规则
+
+- 仅老板和销售助理角色可访问
+- 页面数据按日更新，支持下拉刷新
+- 销售排名默认展示编号，可配置切换为真实姓名
 
 ---
 
@@ -520,93 +590,59 @@
 
 | 角色 | 描述 | 模块权限 |
 |------|------|----------|
-| 销售人员 | 一线销售 | 客户管理（本人数据）、商机管理（本人数据）、任务中心（本人任务）、驾驶舱（仅本人数据） |
-| 销售主管 | 团队管理者 | 客户管理（团队数据）、商机管理（团队数据）、任务中心（团队任务）、驾驶舱（团队全部数据） |
-| 管理员 | 系统管理员 | 全部模块读写，含流程配置、员工管理、角色权限 |
-| 售前工程师 | 技术支持 | 商机管理（查看协同任务）、任务中心（本人及被指派任务） |
-| 管理层 | 高层领导 | 驾驶舱（全部数据只读）、客户管理（只读） |
+| 老板 | 公司管理者 | 可见全部客户、商机和订单；可访问销售看板；可管理公海池 |
+| 销售 | 一线业务人员 | 只能看到自己负责的客户和商机；可管理自己客户的订单 |
+| 销售助理 | 协助老板管理 | 可访问公海池；可帮助分配客户；可查看全部数据 |
 
 ### 4.2 数据字典
 
-#### 4.2.1 客户级别（dict-customer-level）
+#### 4.2.1 客户行业（dict-industry）
 
 | 值 | 显示 | 颜色 |
 |----|------|------|
-| A | A类客户 | red |
-| B | B类客户 | orange |
-| C | C类客户 | blue |
+| packaging | 包装 | #6366f1 |
+| hardware | 五金 | #8b5cf6 |
+| eyewear | 眼镜镜片 | #06b6d4 |
+| electronics | 电子元器件 | #f59e0b |
+| other | 其他 | #94a3b8 |
 
-#### 4.2.2 客户状态（dict-customer-status）
-
-| 值 | 显示 | 颜色 |
-|----|------|------|
-| active | 跟进中 | green |
-| inactive | 久未跟进 | grey |
-| churned | 已流失 | red |
-
-#### 4.2.3 联系人重要程度（dict-contact-importance）
+#### 4.2.2 客户等级（dict-customer-level）
 
 | 值 | 显示 | 颜色 |
 |----|------|------|
-| key | 关键决策人 | red |
-| influence | 有影响力 | orange |
-| normal | 普通联系人 | blue |
+| high | 高价值 | #ef4444 |
+| medium | 中价值 | #f59e0b |
+| low | 普通 | #94a3b8 |
 
-#### 4.2.4 商机阶段（dict-opportunity-stage）
-
-| 值 | 显示 | 颜色 |
-|----|------|------|
-| lead | 线索 | grey |
-| initialContact | 初步接触 | blue |
-| technicalExchange | 技术交流 | cyan |
-| businessNegotiation | 商务谈判 | orange |
-| contractSigned | 合同签订 | green |
-| paymentReceived | 回款完成 | green |
-
-#### 4.2.5 商机状态（dict-opportunity-status）
+#### 4.2.3 企业规模（dict-company-scale）
 
 | 值 | 显示 | 颜色 |
 |----|------|------|
-| open | 进行中 | blue |
-| won | 赢单 | green |
-| lost | 输单 | red |
-| cancelled | 已取消 | grey |
+| small | 小型（50人以下） | #22c55e |
+| medium | 中型（50-200人） | #3b82f6 |
+| large | 大型（200人以上） | #8b5cf6 |
 
-#### 4.2.6 跟进类型（dict-followup-type）
-
-| 值 | 显示 | 颜色 |
-|----|------|------|
-| visit | 拜访 | blue |
-| call | 电话 | cyan |
-| meeting | 会议 | orange |
-| email | 邮件 | grey |
-| other | 其他 | grey |
-
-#### 4.2.7 任务类型（dict-task-type）
+#### 4.2.4 商机销售阶段（dict-opportunity-stage）
 
 | 值 | 显示 | 颜色 |
 |----|------|------|
-| followup | 跟进任务 | blue |
-| technical | 技术交流 | cyan |
-| approval | 审批任务 | orange |
-| delivery | 交付任务 | green |
+| demand_confirmed | 需求确认 | #3b82f6 |
+| scheme_evaluating | 方案评估 | #8b5cf6 |
+| tech_reviewing | 技术对接 | #06b6d4 |
+| business_negotiating | 商务谈判 | #f59e0b |
+| signed | 已签约 | #22c55e |
 
-#### 4.2.8 任务状态（dict-task-status）
-
-| 值 | 显示 | 颜色 |
-|----|------|------|
-| pending | 待处理 | blue |
-| inProgress | 进行中 | orange |
-| completed | 已完成 | green |
-| overdue | 已逾期 | red |
-
-#### 4.2.9 产品线（dict-product-line）
+#### 4.2.5 订单状态（dict-order-status）
 
 | 值 | 显示 | 颜色 |
 |----|------|------|
-| machine | 整机 | blue |
-| parts | 配件 | orange |
-| remanufacturing | 再制造 | green |
+| signed | 签约 | #3b82f6 |
+| production_planning | 生产排期 | #8b5cf6 |
+| in_production | 生产中 | #06b6d4 |
+| quality_check | 质检 | #f59e0b |
+| shipped | 发货 | #22c55e |
+| installing | 安装调试 | #14b8a6 |
+| accepted | 验收 | #10b981 |
 
 ### 4.3 状态流转
 
@@ -616,39 +652,45 @@
 
 | 状态 | 显示 | 颜色 | 说明 |
 |------|------|------|------|
-| open | 进行中 | blue | 正常跟进的商机 |
-| won | 赢单 | green | 成功成交 |
-| lost | 输单 | red | 丢单 |
-| cancelled | 已取消 | grey | 主动取消 |
+| demand_confirmed | 需求确认 | #3b82f6 | 初步确认客户需求 |
+| scheme_evaluating | 方案评估 | #8b5cf6 | 客户评估技术方案 |
+| tech_reviewing | 技术对接 | #06b6d4 | 技术细节沟通 |
+| business_negotiating | 商务谈判 | #f59e0b | 价格和合同条款谈判 |
+| signed | 已签约 | #22c55e | 合同签署，商机结束 |
 
 **流转规则：**
 
 | 当前状态 | 操作 | 目标状态 | 条件 |
 |----------|------|----------|------|
-| open | 赢单 | won | 合同签订后，由销售或管理员操作 |
-| open | 输单 | lost | 明确丢单原因后，由销售或管理员操作 |
-| open | 取消 | cancelled | 主动取消，需填写取消原因 |
-| lost | 重新激活 | open | 同一客户下新建商机 |
-| cancelled | 重新激活 | open | 取消后重新跟单 |
+| 需求确认 | 推进 | 方案评估 | 填写推进备注 |
+| 方案评估 | 推进 | 技术对接 | 填写推进备注 |
+| 技术对接 | 推进 | 商务谈判 | 填写推进备注 |
+| 商务谈判 | 推进 | 已签约 | 填写推进备注，关联订单 |
 
-#### 4.3.2 公海池流转
+#### 4.3.2 订单状态流转
+
+**状态定义：**
+
+| 状态 | 显示 | 颜色 | 说明 |
+|------|------|------|------|
+| signed | 签约 | #3b82f6 | 合同签署完成 |
+| production_planning | 生产排期 | #8b5cf6 | 内部生产计划排定 |
+| in_production | 生产中 | #06b6d4 | 生产制造进行中 |
+| quality_check | 质检 | #f59e0b | 出厂质量检验 |
+| shipped | 发货 | #22c55e | 设备已发出 |
+| installing | 安装调试 | #14b8a6 | 现场安装和调试 |
+| accepted | 验收 | #10b981 | 客户确认验收完成 |
 
 **流转规则：**
 
 | 当前状态 | 操作 | 目标状态 | 条件 |
 |----------|------|----------|------|
-| 正常客户 | 自动入公海 | 公海池 | 连续30天无跟进记录（可配置） |
-| 公海池 | 认领 | 正常客户 | 销售主动认领 |
-
-#### 4.3.3 任务状态流转
-
-**流转规则：**
-
-| 当前状态 | 操作 | 目标状态 | 条件 |
-|----------|------|----------|------|
-| pending | 开始处理 | inProgress | 负责人开始处理 |
-| inProgress | 标记完成 | completed | 任务完成 |
-| pending/inProgress | 逾期 | overdue | 超过截止日期未完成 |
+| 签约 | 排产 | 生产排期 | 选择生产负责人 |
+| 生产排期 | 开始生产 | 生产中 | 填写实际开始时间 |
+| 生产中 | 提交质检 | 质检 | 上传质检记录附件（可选项） |
+| 质检 | 发货 | 发货 | 填写物流信息 |
+| 发货 | 开始安装 | 安装调试 | 记录到场时间 |
+| 安装调试 | 完成验收 | 验收 | 客户线上确认或签字 |
 
 ---
 
@@ -658,4 +700,4 @@
 
 | 版本 | 日期 | 变更内容 |
 |------|------|----------|
-| 1.0.0 | 2026-04-14 | 初始版本，基于 normal 场景 v1.0.0 方案生成 |
+| 1.0.0 | 2026-04-20 | 初始版本，基于 normal 场景 v0.1 方案生成 |

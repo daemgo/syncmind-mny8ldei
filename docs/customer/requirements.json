@@ -1,0 +1,344 @@
+{
+  "currentVersion": "v0.1",
+  "status": "draft",
+  "versions": [{
+    "version": "v0.1",
+    "createdAt": "2026-04-20T00:00:00.000Z",
+    "trigger": "cold-start",
+    "inputSummary": "基于客户档案（国彩真空）推演 + 客户需求信号（订单规范/销售可视化/客户沉淀/转化复购）",
+    "changeSummary": ["从档案和客户需求信号推演8条需求（4条业务+4条功能）", "生成7个待问问题（4必问+3选问）"]
+  }],
+  "current": {
+    "salesInput": {
+      "salesPerson": "",
+      "lastUpdated": "2026-04-20",
+      "overallAssessment": {
+        "customerIntent": "规范订单管理、实现销售可视化、沉淀客户资产、提升转化和复购",
+        "projectUrgency": "中",
+        "budgetSituation": "未知",
+        "competitionStatus": "未知",
+        "winProbability": "中",
+        "keyObstacles": ["预算未确认", "决策人未确认", "技术偏好未知", "现有系统情况未知"],
+        "confidenceLevel": "中"
+      },
+      "keyPersons": [],
+      "realNeeds": {
+        "explicitNeeds": ["规范订单管理", "老板能看清销售情况", "沉淀客户资源", "提高转化率复购率"],
+        "implicitNeeds": ["销售流程标准化", "客户信息集中化管理", "销售数据可视化看板", "商机阶段管理与转化追踪", "报价审批流程"],
+        "suspectedNeeds": ["合同全生命周期管理", "回款与应收账款跟踪", "售后维保工单管理", "非标设备BOM与成本核算"]
+      },
+      "decisionFactors": {
+        "primaryFactor": "老板能否直观看到销售全貌和关键指标",
+        "secondaryFactors": ["系统易用性（低学习成本）", "实施周期短（快速见效）", "投入产出比", "客户数据迁移便利性"],
+        "dealBreakers": []
+      },
+      "notes": "客户为小型制造企业（10-50人），决策链短（老板直接决策），需以老板看板为核心卖点。行业特点：非标/半非标定制设备，B2B销售模式。",
+      "concerns": ["小型制造企业员工数字化素养有限，系统接受度存疑", "老板期望一次性解决所有问题 vs 实际需要分期实施", "1688渠道获客与CRM系统的衔接"],
+      "suggestions": ["以销售看板Demo直观展示价值，降低决策门槛", "先上CRM+订单模块，1-2月内快速见效建立信任", "提供轻量SaaS方案降低初期投入风险"]
+    },
+    "sources": { "meetings": [], "documents": [], "communications": [], "observations": [] },
+    "needs": [
+      {
+        "id": "REQ-001",
+        "category": "business",
+        "title": "客户信息集中化管理",
+        "description": "建立统一的客户档案库，将分散在销售个人手机/微信中的客户信息集中沉淀，包含客户基本信息、联系人、历史交易、沟通记录等，防止人员流失导致客户流失。支持客户公海池、客户分配与回收机制。",
+        "priority": "must",
+        "confidence": "high",
+        "source": { "type": "customer-stated", "detail": "客户明确提出沉淀客户资源需求", "raw": null },
+        "status": "active",
+        "module": "客户管理",
+        "relatedPainPoints": ["客户管理"],
+        "firstVersion": "v0.1",
+        "lastUpdated": "v0.1",
+        "history": []
+      },
+      {
+        "id": "REQ-002",
+        "category": "business",
+        "title": "商机全生命周期管理",
+        "description": "建立从线索获取、商机立项、方案报价、商务谈判到签约/输单的标准销售流程。支持自定义商机阶段（如初次接触→需求确认→方案报价→技术评审→商务谈判→签约），各阶段转化率自动统计，超期未跟进预警。",
+        "priority": "must",
+        "confidence": "high",
+        "source": { "type": "customer-stated", "detail": "由客户提高转化率复购率需求推演", "raw": null },
+        "status": "active",
+        "module": "商机管理",
+        "relatedPainPoints": ["订单管理", "客户管理"],
+        "firstVersion": "v0.1",
+        "lastUpdated": "v0.1",
+        "history": []
+      },
+      {
+        "id": "REQ-003",
+        "category": "business",
+        "title": "订单全流程管理",
+        "description": "从报价、合同签订、生产跟踪到交付验收的订单全生命周期管理，支持非标/半非标设备定制单的特殊字段（如技术参数、定制要求、交付节点）。订单状态实时可查，关键节点自动通知。",
+        "priority": "must",
+        "confidence": "high",
+        "source": { "type": "customer-stated", "detail": "客户明确提出规范订单管理需求", "raw": null },
+        "status": "active",
+        "module": "订单管理",
+        "relatedPainPoints": ["订单管理", "生产管理"],
+        "firstVersion": "v0.1",
+        "lastUpdated": "v0.1",
+        "history": []
+      },
+      {
+        "id": "REQ-004",
+        "category": "business",
+        "title": "老板销售驾驶舱",
+        "description": "面向老板/总经理的销售数据可视化看板，核心指标包括：本月/本季度签约金额、回款金额、商机Pipeline、订单交付进度、客户Top榜、销售排名。支持移动端查看，关键指标异常预警（如超期未回款、大客户流失风险）。",
+        "priority": "must",
+        "confidence": "high",
+        "source": { "type": "customer-stated", "detail": "客户明确提出让老板看清销售情况", "raw": null },
+        "status": "active",
+        "module": "销售看板",
+        "relatedPainPoints": ["订单管理"],
+        "firstVersion": "v0.1",
+        "lastUpdated": "v0.1",
+        "history": []
+      },
+      {
+        "id": "REQ-005",
+        "category": "functional",
+        "title": "非标设备报价管理",
+        "description": "支持非标/半非标真空镀膜设备的报价流程管理，包含产品选型、技术参数配置、成本估算（BOM+工时）、报价单生成与审批。支持历史报价查询与对比，报价模板复用。",
+        "priority": "should",
+        "confidence": "medium",
+        "source": { "type": "profile-inference", "detail": "由非标定制业务模式和订单管理需求推演", "raw": null },
+        "status": "active",
+        "module": "报价管理",
+        "relatedPainPoints": ["成本核算"],
+        "firstVersion": "v0.1",
+        "lastUpdated": "v0.1",
+        "history": []
+      },
+      {
+        "id": "REQ-006",
+        "category": "functional",
+        "title": "回款与应收账款跟踪",
+        "description": "订单签约后的回款计划管理，支持分期付款设置、回款提醒、逾期预警、坏账标识。老板看板中实时展示应收账款总额、账龄分布、逾期率。",
+        "priority": "should",
+        "confidence": "medium",
+        "source": { "type": "profile-inference", "detail": "由订单管理需求和B2B设备销售行业特点推演", "raw": null },
+        "status": "active",
+        "module": "回款管理",
+        "relatedPainPoints": ["订单管理"],
+        "firstVersion": "v0.1",
+        "lastUpdated": "v0.1",
+        "history": []
+      },
+      {
+        "id": "REQ-007",
+        "category": "functional",
+        "title": "合同全生命周期管理",
+        "description": "合同起草、审批、签署、归档、变更、续签的全流程管理。支持合同模板库、审批流配置、关键条款提醒（质保期、付款条件、违约责任）。合同与订单关联，合同执行进度实时可见。",
+        "priority": "should",
+        "confidence": "medium",
+        "source": { "type": "profile-inference", "detail": "由订单规范化需求推演", "raw": null },
+        "status": "active",
+        "module": "合同管理",
+        "relatedPainPoints": ["订单管理"],
+        "firstVersion": "v0.1",
+        "lastUpdated": "v0.1",
+        "history": []
+      },
+      {
+        "id": "REQ-008",
+        "category": "functional",
+        "title": "客户运营与复购提醒",
+        "description": "基于客户历史交易数据和设备使用周期，自动生成复购/维保提醒。包含耗材更换周期提醒、设备升级推荐、老客户专属优惠推送。支持客户标签体系和分层运营策略。",
+        "priority": "should",
+        "confidence": "medium",
+        "source": { "type": "customer-stated", "detail": "客户明确提出提高转化率复购率", "raw": null },
+        "status": "active",
+        "module": "客户运营",
+        "relatedPainPoints": ["客户管理"],
+        "firstVersion": "v0.1",
+        "lastUpdated": "v0.1",
+        "history": []
+      }
+    ],
+    "users": [
+      { "role": "销售", "description": "2-5人，负责客户开发、商机跟进、报价签约", "mainTasks": ["客户录入与维护", "商机阶段推进", "报价单制作与提交", "订单录入", "跟进记录登记"] },
+      { "role": "老板/总经理", "description": "1人，关注销售全貌、业绩指标、风险预警，日常不操作具体业务", "mainTasks": ["查看销售看板", "审批报价/合同", "业绩趋势分析", "风险预警处理"] },
+      { "role": "销售助理/内勤", "description": "1-2人，协助订单跟进、合同归档、回款跟踪", "mainTasks": ["订单信息录入与更新", "合同归档", "回款登记与对账", "客户资料整理"] }
+    ],
+    "scope": {
+      "inScope": ["客户管理", "商机管理", "订单管理", "销售看板"],
+      "outOfScope": ["生产排程(MES)", "库存管理(WMS)", "财务总账", "HR人事管理"],
+      "futureScope": ["报价管理", "合同管理", "回款跟踪", "售后维保工单", "生产进度对接", "成本核算"],
+      "phases": [
+        {"name": "一期", "description": "客户+商机+订单+看板，聚焦数据沉淀和销售可视化", "priority": "P0"},
+        {"name": "二期", "description": "报价+合同+回款，完善商务闭环", "priority": "P1"},
+        {"name": "三期", "description": "售后维保+生产对接+成本核算，延伸价值链", "priority": "P2"}
+      ],
+      "priorityMatrix": [
+        {"id": "REQ-001", "priority": "P0", "effort": "中"},
+        {"id": "REQ-002", "priority": "P0", "effort": "中"},
+        {"id": "REQ-003", "priority": "P0", "effort": "大"},
+        {"id": "REQ-004", "priority": "P0", "effort": "中"},
+        {"id": "REQ-005", "priority": "P1", "effort": "中"},
+        {"id": "REQ-006", "priority": "P1", "effort": "小"},
+        {"id": "REQ-007", "priority": "P1", "effort": "中"},
+        {"id": "REQ-008", "priority": "P2", "effort": "小"}
+      ]
+    },
+    "constraints": {
+      "budget": { "total": "", "flexibility": "未知" },
+      "timeline": { "expectedStart": "", "expectedGoLive": "" }
+    },
+    "successCriteria": {
+      "criteria": [
+        { "metric": "客户信息完整率", "target": "100%客户档案入库，无遗漏", "measurement": "系统客户数 vs 实际客户数" },
+        { "metric": "商机转化率", "target": "上线3个月内商机转化率提升20%", "measurement": "签约商机数 / 总商机数" },
+        { "metric": "老板查看频率", "target": "老板每周查看看板≥3次", "measurement": "看板访问日志" },
+        { "metric": "订单交期达成率", "target": "订单按期交付率提升至90%以上", "measurement": "按期交付订单数 / 总订单数" }
+      ]
+    },
+    "risksAndAssumptions": {
+      "risks": [
+        { "description": "小型制造企业员工数字化素养有限，系统上线后使用率低", "impact": "高", "mitigation": "选择低学习成本方案，提供现场培训和1个月陪跑服务" },
+        { "description": "老板期望过高，希望一次性解决所有管理问题", "impact": "中", "mitigation": "明确分期范围，一期聚焦客户+订单+看板快速见效，管理期望" },
+        { "description": "预算不足导致项目搁置", "impact": "高", "mitigation": "提供轻量SaaS方案降低初期投入，按模块分期采购" },
+        { "description": "销售抵触录入客户信息（担心透明化）", "impact": "中", "mitigation": "设计激励政策，将系统使用纳入绩效考核，老板带头推动" }
+      ],
+      "assumptions": [
+        { "description": "假设客户无现有CRM/ERP系统，从零建设", "impact": "中" },
+        { "description": "假设老板/法人为最终决策人，决策周期1-4周", "impact": "低" },
+        { "description": "假设销售团队规模2-5人，用户数不多", "impact": "低" },
+        { "description": "假设客户接受SaaS部署模式（无需本地服务器）", "impact": "中" }
+      ],
+      "dependencies": []
+    },
+    "solutionDirection": {
+      "overallApproach": "轻量CRM + 订单管理 + 老板看板，一期快速上线核心模块（客户+商机+订单+看板）验证价值，后续分期扩展商务闭环和生产对接",
+      "recommendedApproach": null,
+      "technicalDirection": null,
+      "implementationStrategy": "先验证后扩展：一期4-6周交付核心模块，跑通后二期扩展报价/合同/回款，三期对接生产和售后",
+      "nextSteps": ["确认预算范围和时间期望", "确认是否有现有系统需要对接或数据迁移", "安排销售看板Demo演示", "确认关键决策人和参与人"]
+    },
+    "pendingQuestions": [
+      {
+        "id": "PQ-001",
+        "category": "预算",
+        "priority": "必问",
+        "stage": "screening",
+        "question": "这套系统的预算大概在什么范围？比如5万以内、5-15万、还是15万以上？",
+        "purpose": "判断方案档次（SaaS标准版 vs 定制开发）和实施路径",
+        "expectedDirection": "小型制造企业通常10万以内轻量SaaS或20-50万定制",
+        "targetPerson": "老板/法人",
+        "relatedNeedIds": ["REQ-001", "REQ-002", "REQ-003", "REQ-004"],
+        "status": "pending",
+        "answer": null,
+        "resolvedInVersion": null
+      },
+      {
+        "id": "PQ-002",
+        "category": "决策链",
+        "priority": "必问",
+        "stage": "screening",
+        "question": "除了老板本人，还有谁会参与这个系统的选型和决策？技术负责人或财务是否会参与评估？",
+        "purpose": "识别完整决策链，避免漏掉关键影响人",
+        "expectedDirection": "小型企业通常老板一人决策，可能有技术负责人参与评估",
+        "targetPerson": "对接人/销售",
+        "relatedNeedIds": [],
+        "status": "pending",
+        "answer": null,
+        "resolvedInVersion": null
+      },
+      {
+        "id": "PQ-003",
+        "category": "现状",
+        "priority": "必问",
+        "stage": "screening",
+        "question": "目前公司用什么工具管理客户和订单？是Excel、微信、还是已经有某个系统？",
+        "purpose": "了解现状和迁移成本，判断替换阻力",
+        "expectedDirection": "大概率Excel+微信，可能有简单的记账软件",
+        "targetPerson": "销售/内勤",
+        "relatedNeedIds": ["REQ-001", "REQ-003"],
+        "status": "pending",
+        "answer": null,
+        "resolvedInVersion": null
+      },
+      {
+        "id": "PQ-004",
+        "category": "时间",
+        "priority": "必问",
+        "stage": "screening",
+        "question": "您希望什么时候把这套系统用起来？有没有明确的时间节点？",
+        "purpose": "判断紧迫性和项目排期",
+        "expectedDirection": "越快越好或某个具体时间点",
+        "targetPerson": "老板/法人",
+        "relatedNeedIds": [],
+        "status": "pending",
+        "answer": null,
+        "resolvedInVersion": null
+      },
+      {
+        "id": "PQ-005",
+        "category": "技术",
+        "priority": "必问",
+        "stage": "screening",
+        "question": "系统部署在云端（SaaS）还是本地服务器？公司对数据安全有什么特殊要求？",
+        "purpose": "确定部署方案，影响成本和实施路径",
+        "expectedDirection": "小型企业通常接受SaaS，除非有特殊行业合规要求",
+        "targetPerson": "老板/技术负责人",
+        "relatedNeedIds": [],
+        "status": "pending",
+        "answer": null,
+        "resolvedInVersion": null
+      },
+      {
+        "id": "PQ-006",
+        "category": "业务",
+        "priority": "选问",
+        "stage": "deep-dive",
+        "question": "非标设备的报价流程是怎样的？从客户询价到出报价单，中间经过哪些环节？谁审批？",
+        "purpose": "深入了解报价流程，为二期报价模块设计提供输入",
+        "expectedDirection": "销售询价→技术评估成本→老板审批→出报价单",
+        "targetPerson": "销售/技术负责人",
+        "relatedNeedIds": ["REQ-005"],
+        "status": "pending",
+        "answer": null,
+        "resolvedInVersion": null
+      },
+      {
+        "id": "PQ-007",
+        "category": "业务",
+        "priority": "选问",
+        "stage": "deep-dive",
+        "question": "目前客户的来源渠道有哪些？1688、展会、老客户转介绍各占多大比例？",
+        "purpose": "了解获客渠道分布，优化客户运营和线索管理设计",
+        "expectedDirection": "1688为主，辅以展会和转介绍",
+        "targetPerson": "销售/老板",
+        "relatedNeedIds": ["REQ-001", "REQ-008"],
+        "status": "pending",
+        "answer": null,
+        "resolvedInVersion": null
+      },
+      {
+        "id": "PQ-008",
+        "category": "业务",
+        "priority": "选问",
+        "stage": "deep-dive",
+        "question": "设备交付后，售后维保是怎么管理的？有没有工单系统或客户反馈渠道？",
+        "purpose": "了解售后现状，为三期售后模块设计提供输入",
+        "expectedDirection": "微信/电话报修，人工记录和派单",
+        "targetPerson": "售后/内勤",
+        "relatedNeedIds": [],
+        "status": "pending",
+        "answer": null,
+        "resolvedInVersion": null
+      }
+    ],
+    "completionRate": {
+      "overall": 25,
+      "byCategory": {
+        "business": 30,
+        "functional": 20
+      },
+      "blockers": ["预算未确认", "决策人未确认", "现有系统情况未知", "部署偏好未知", "时间期望未知"]
+    }
+  }
+}

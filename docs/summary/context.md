@@ -2,8 +2,8 @@
 
 ---
 ### 2026-04-20
-**Skills**: profile
-**变更**: docs/customer/profile.json（首次生成 v1.0）
+**Skills**: profile, init-app
+**变更**: docs/customer/profile.json（首次生成 v1.0）；src/types/order.ts + src/mock/order.ts
 
 - 为温州市国彩真空科技有限公司建立客户档案
 - 行业：真空设备制造（PVD镀膜机、卷绕镀膜机），B2B设备销售+非标定制
@@ -11,6 +11,7 @@
 - 时机判断：基础数字化阶段，窗口期6-12个月
 - 核心痛点：生产排产不透明、订单跟进混乱、成本核算困难
 - 公开信息极少（无官网、无工商详情），基于行业推断，置信度0.55
+- init-app 补充订单类型和 Mock 数据（5条非标设备订单，覆盖各状态）
 
 ---
 

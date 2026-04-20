@@ -3,13 +3,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ArrowLeft, DollarSign, Calendar, User, Package } from "lucide-react"
-import {
-  opportunityMock,
-  stageHistoryMock,
-  opportunityFollowupMock,
-  opportunityTaskMock,
-} from "@/mock/opportunity"
+import { ArrowLeft, DollarSign, Calendar, User, FileText, CheckCircle2 } from "lucide-react"
+import { opportunityMock, stageHistoryMock, opportunityAttachmentMock } from "@/mock/opportunity"
 import { getDictLabel, getDictColor, getBadgeClassName } from "@/lib/dict"
 import { cn } from "@/lib/utils"
 
@@ -17,14 +12,13 @@ export const Route = createFileRoute("/opportunities/$id")({
   component: OpportunityDetail,
 })
 
-// Ordered stages for the step display
+// Ordered stages for the step display (matching spec dict-opportunity-stage)
 const STAGES = [
-  { value: "lead", label: "线索" },
-  { value: "initialContact", label: "初步接触" },
-  { value: "technicalExchange", label: "技术交流" },
-  { value: "businessNegotiation", label: "商务谈判" },
-  { value: "contractSigned", label: "合同签订" },
-  { value: "paymentReceived", label: "回款完成" },
+  { value: "demand_confirmed", label: "需求确认" },
+  { value: "scheme_evaluating", label: "方案评估" },
+  { value: "tech_reviewing", label: "技术对接" },
+  { value: "business_negotiating", label: "商务谈判" },
+  { value: "signed", label: "已签约" },
 ]
 
 function OpportunityDetail() {
@@ -33,8 +27,7 @@ function OpportunityDetail() {
   if (!opp) return <div className="p-6 text-muted-foreground">未找到该商机</div>
 
   const stageHistory = stageHistoryMock.filter((h) => h.opportunityId === id)
-  const followups = opportunityFollowupMock.filter((f) => f.opportunityId === id)
-  const tasks = opportunityTaskMock.filter((t) => t.opportunityId === id)
+  const attachments = opportunityAttachmentMock.filter((a) => a.opportunityId === id)
 
   const currentStageIdx = STAGES.findIndex((s) => s.value === opp.stage)
 
@@ -47,16 +40,17 @@ function OpportunityDetail() {
         </Button>
         <div className="flex-1">
           <div className="flex items-center gap-3 flex-wrap">
-            <h1 className="text-2xl font-bold">{opp.opportunityName}</h1>
-            <Badge variant="outline" className={cn("border font-medium", getBadgeClassName(getDictColor("dict-opportunity-status", opp.status)))}>
-              {getDictLabel("dict-opportunity-status", opp.status)}
+            <h1 className="text-2xl font-bold">{opp.name}</h1>
+            <Badge variant="outline" className={cn("border font-medium", getBadgeClassName(getDictColor("dict-opportunity-stage", opp.stage)))}>
+              {getDictLabel("dict-opportunity-stage", opp.stage)}
             </Badge>
           </div>
           <p className="text-sm text-muted-foreground mt-1 font-mono">{opp.code}</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline">编辑</Button>
-          <Button>推进阶段</Button>
+          {opp.stage !== "signed" && <Button>推进阶段</Button>}
+          <Link to="/orders/new?opportunityId=:id" params={{ id: opp.id }}><Button variant="outline">转为订单</Button></Link>
         </div>
       </div>
 
@@ -78,7 +72,7 @@ function OpportunityDetail() {
                         "bg-muted border-border text-muted-foreground"
                       )}
                     >
-                      {isDone ? "✓" : idx + 1}
+                      {isDone ? <CheckCircle2 className="h-4 w-4" /> : idx + 1}
                     </div>
                     <span className={cn(
                       "text-xs text-center leading-tight",
@@ -102,32 +96,27 @@ function OpportunityDetail() {
         <div className="space-y-4">
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-3">
-              <CardTitle className="text-base">商机信息</CardTitle>
+              <CardTitle className="text-base">商机概览</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <InfoRow icon={<DollarSign className="h-4 w-4" />} label="商机金额" value={`¥${opp.amount.toLocaleString()}`} />
-              <InfoRow icon={<Calendar className="h-4 w-4" />} label="预计成交" value={opp.expectedCloseDate} />
-              <InfoRow icon={<User className="h-4 w-4" />} label="归属销售" value={opp.ownerName} />
-              <InfoRow icon={<Package className="h-4 w-4" />} label="产品线" value={opp.productLine.map((p) => getDictLabel("dict-product-line", p)).join("、")} />
+              <InfoRow icon={<DollarSign className="h-4 w-4" />} label="预计金额" value={`¥${opp.amount.toLocaleString()}`} />
+              <InfoRow icon={<Calendar className="h-4 w-4" />} label="预计签约日期" value={opp.expectedCloseDate} />
+              <InfoRow icon={<User className="h-4 w-4" />} label="负责销售" value={opp.ownerName} />
             </CardContent>
           </Card>
 
           <Card className="border-0 shadow-sm">
             <CardHeader className="pb-3">
-              <CardTitle className="text-base">所属客户</CardTitle>
+              <CardTitle className="text-base">关联客户</CardTitle>
             </CardHeader>
             <CardContent>
-              <Link
-                to="/customers/$id"
-                params={{ id: opp.customerId }}
-                className="text-sm font-medium hover:underline text-primary"
-              >
+              <Link to="/customers/$id" params={{ id: opp.customerId }} className="text-sm font-medium hover:underline text-primary">
                 {opp.customerName}
               </Link>
-              {opp.remark && (
+              {opp.note && (
                 <>
                   <p className="text-xs text-muted-foreground mt-3 mb-1">备注</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{opp.remark}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{opp.note}</p>
                 </>
               )}
             </CardContent>
@@ -137,91 +126,66 @@ function OpportunityDetail() {
         {/* Tabs */}
         <div className="lg:col-span-2">
           <Card className="border-0 shadow-sm">
-            <Tabs defaultValue="followups">
+            <Tabs defaultValue="history">
               <CardHeader className="pb-0">
                 <TabsList className="w-full justify-start">
-                  <TabsTrigger value="followups">跟进记录 ({followups.length})</TabsTrigger>
-                  <TabsTrigger value="stages">阶段变更 ({stageHistory.length})</TabsTrigger>
-                  <TabsTrigger value="tasks">关联任务 ({tasks.length})</TabsTrigger>
+                  <TabsTrigger value="history">阶段历史 ({stageHistory.length})</TabsTrigger>
+                  <TabsTrigger value="attachments">附件 ({attachments.length})</TabsTrigger>
                 </TabsList>
               </CardHeader>
               <CardContent className="pt-4">
 
-                {/* Followups */}
-                <TabsContent value="followups" className="m-0 space-y-3">
-                  {followups.length === 0 ? (
-                    <p className="text-sm text-muted-foreground py-8 text-center">暂无跟进记录</p>
-                  ) : (
-                    followups.map((f) => (
-                      <div key={f.id} className="p-4 rounded-xl border bg-card space-y-2">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <Badge variant="outline" className={cn("text-xs", getBadgeClassName(getDictColor("dict-followup-type", f.type)))}>
-                              {getDictLabel("dict-followup-type", f.type)}
-                            </Badge>
-                            <span className="text-xs text-muted-foreground">{f.ownerName}</span>
-                          </div>
-                          <span className="text-xs text-muted-foreground">{f.occurredAt.slice(0, 10)}</span>
-                        </div>
-                        <p className="text-sm text-muted-foreground leading-relaxed">{f.content}</p>
-                      </div>
-                    ))
-                  )}
-                  <Button variant="outline" size="sm" className="w-full mt-2">+ 新建跟进记录</Button>
-                </TabsContent>
-
                 {/* Stage history */}
-                <TabsContent value="stages" className="m-0">
-                  <div className="relative space-y-0">
-                    <div className="absolute left-4 top-4 bottom-4 w-px bg-border" />
-                    {stageHistory.map((h) => (
-                      <div key={h.id} className="relative flex gap-4 pb-5 last:pb-0">
-                        <div className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-card border-2 border-primary">
-                          <div className="h-2 w-2 rounded-full bg-primary" />
-                        </div>
-                        <div className="flex-1 pt-0.5 space-y-1">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            {h.fromStage && (
-                              <>
-                                <Badge variant="outline" className={cn("text-xs", getBadgeClassName(getDictColor("dict-opportunity-stage", h.fromStage)))}>
-                                  {getDictLabel("dict-opportunity-stage", h.fromStage)}
-                                </Badge>
-                                <span className="text-xs text-muted-foreground">→</span>
-                              </>
-                            )}
-                            <Badge variant="outline" className={cn("text-xs", getBadgeClassName(getDictColor("dict-opportunity-stage", h.toStage)))}>
-                              {getDictLabel("dict-opportunity-stage", h.toStage)}
-                            </Badge>
-                            <span className="text-xs text-muted-foreground">· {h.operatorName} · {h.occurredAt.slice(0, 10)}</span>
+                <TabsContent value="history" className="m-0">
+                  {stageHistory.length === 0 ? (
+                    <p className="text-sm text-muted-foreground py-8 text-center">暂无阶段变更记录</p>
+                  ) : (
+                    <div className="relative space-y-0">
+                      <div className="absolute left-4 top-4 bottom-4 w-px bg-border" />
+                      {stageHistory.map((h) => (
+                        <div key={h.id} className="relative flex gap-4 pb-5 last:pb-0">
+                          <div className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-card border-2 border-primary">
+                            <div className="h-2 w-2 rounded-full bg-primary" />
                           </div>
-                          <p className="text-sm text-muted-foreground">{h.remark}</p>
+                          <div className="flex-1 pt-0.5 space-y-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <Badge variant="outline" className={cn("text-xs", getBadgeClassName(getDictColor("dict-opportunity-stage", h.stage)))}>
+                                {getDictLabel("dict-opportunity-stage", h.stage)}
+                              </Badge>
+                              <span className="text-xs text-muted-foreground">· {h.enteredAt}</span>
+                            </div>
+                            <p className="text-sm text-muted-foreground">{h.note}</p>
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  )}
                 </TabsContent>
 
-                {/* Tasks */}
-                <TabsContent value="tasks" className="m-0 space-y-3">
-                  {tasks.length === 0 ? (
-                    <p className="text-sm text-muted-foreground py-8 text-center">暂无关联任务</p>
+                {/* Attachments */}
+                <TabsContent value="attachments" className="m-0">
+                  {attachments.length === 0 ? (
+                    <div className="py-8 text-center space-y-3">
+                      <p className="text-sm text-muted-foreground">暂无附件</p>
+                      <Button variant="outline" size="sm">上传附件</Button>
+                    </div>
                   ) : (
-                    tasks.map((t) => (
-                      <div key={t.id} className="flex items-center justify-between p-4 rounded-xl border bg-card">
-                        <div className="space-y-1">
-                          <p className="text-sm font-medium">{t.taskName}</p>
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs text-muted-foreground">负责人：{t.assigneeName}</span>
-                            <span className="text-xs text-muted-foreground">截止：{t.deadline}</span>
+                    <div className="space-y-3">
+                      {attachments.map((a) => (
+                        <div key={a.id} className="flex items-center justify-between p-4 rounded-xl border bg-card">
+                          <div className="flex items-center gap-3">
+                            <FileText className="h-5 w-5 text-muted-foreground" />
+                            <div>
+                              <p className="text-sm font-medium">{a.fileName}</p>
+                              <p className="text-xs text-muted-foreground">{a.uploaderName} · {a.uploadedAt}</p>
+                            </div>
                           </div>
+                          <Badge variant="outline" className="text-xs">{a.fileType}</Badge>
                         </div>
-                        <Badge variant="outline" className={cn("text-xs shrink-0", getBadgeClassName(getDictColor("dict-task-status", t.status)))}>
-                          {getDictLabel("dict-task-status", t.status)}
-                        </Badge>
-                      </div>
-                    ))
+                      ))}
+                      <Button variant="outline" size="sm" className="w-full mt-2">上传附件</Button>
+                    </div>
                   )}
-                  <Button variant="outline" size="sm" className="w-full mt-2">+ 新建任务</Button>
                 </TabsContent>
 
               </CardContent>

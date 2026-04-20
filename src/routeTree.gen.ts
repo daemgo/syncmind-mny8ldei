@@ -14,9 +14,11 @@ import { Route as UsersIndexRouteImport } from './routes/users/index'
 import { Route as TasksIndexRouteImport } from './routes/tasks/index'
 import { Route as RolesIndexRouteImport } from './routes/roles/index'
 import { Route as ProcessConfigIndexRouteImport } from './routes/process-config/index'
+import { Route as OrdersIndexRouteImport } from './routes/orders/index'
 import { Route as OpportunitiesIndexRouteImport } from './routes/opportunities/index'
 import { Route as FollowupsIndexRouteImport } from './routes/followups/index'
 import { Route as CustomersIndexRouteImport } from './routes/customers/index'
+import { Route as OrdersIdRouteImport } from './routes/orders/$id'
 import { Route as OpportunitiesIdRouteImport } from './routes/opportunities/$id'
 import { Route as FollowupsIdRouteImport } from './routes/followups/$id'
 import { Route as CustomersIdRouteImport } from './routes/customers/$id'
@@ -47,6 +49,11 @@ const ProcessConfigIndexRoute = ProcessConfigIndexRouteImport.update({
   path: '/process-config/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrdersIndexRoute = OrdersIndexRouteImport.update({
+  id: '/orders/',
+  path: '/orders/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OpportunitiesIndexRoute = OpportunitiesIndexRouteImport.update({
   id: '/opportunities/',
   path: '/opportunities/',
@@ -60,6 +67,11 @@ const FollowupsIndexRoute = FollowupsIndexRouteImport.update({
 const CustomersIndexRoute = CustomersIndexRouteImport.update({
   id: '/customers/',
   path: '/customers/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrdersIdRoute = OrdersIdRouteImport.update({
+  id: '/orders/$id',
+  path: '/orders/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OpportunitiesIdRoute = OpportunitiesIdRouteImport.update({
@@ -89,9 +101,11 @@ export interface FileRoutesByFullPath {
   '/customers/$id': typeof CustomersIdRoute
   '/followups/$id': typeof FollowupsIdRoute
   '/opportunities/$id': typeof OpportunitiesIdRoute
+  '/orders/$id': typeof OrdersIdRoute
   '/customers/': typeof CustomersIndexRoute
   '/followups/': typeof FollowupsIndexRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
+  '/orders/': typeof OrdersIndexRoute
   '/process-config/': typeof ProcessConfigIndexRoute
   '/roles/': typeof RolesIndexRoute
   '/tasks/': typeof TasksIndexRoute
@@ -103,9 +117,11 @@ export interface FileRoutesByTo {
   '/customers/$id': typeof CustomersIdRoute
   '/followups/$id': typeof FollowupsIdRoute
   '/opportunities/$id': typeof OpportunitiesIdRoute
+  '/orders/$id': typeof OrdersIdRoute
   '/customers': typeof CustomersIndexRoute
   '/followups': typeof FollowupsIndexRoute
   '/opportunities': typeof OpportunitiesIndexRoute
+  '/orders': typeof OrdersIndexRoute
   '/process-config': typeof ProcessConfigIndexRoute
   '/roles': typeof RolesIndexRoute
   '/tasks': typeof TasksIndexRoute
@@ -118,9 +134,11 @@ export interface FileRoutesById {
   '/customers/$id': typeof CustomersIdRoute
   '/followups/$id': typeof FollowupsIdRoute
   '/opportunities/$id': typeof OpportunitiesIdRoute
+  '/orders/$id': typeof OrdersIdRoute
   '/customers/': typeof CustomersIndexRoute
   '/followups/': typeof FollowupsIndexRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
+  '/orders/': typeof OrdersIndexRoute
   '/process-config/': typeof ProcessConfigIndexRoute
   '/roles/': typeof RolesIndexRoute
   '/tasks/': typeof TasksIndexRoute
@@ -134,9 +152,11 @@ export interface FileRouteTypes {
     | '/customers/$id'
     | '/followups/$id'
     | '/opportunities/$id'
+    | '/orders/$id'
     | '/customers/'
     | '/followups/'
     | '/opportunities/'
+    | '/orders/'
     | '/process-config/'
     | '/roles/'
     | '/tasks/'
@@ -148,9 +168,11 @@ export interface FileRouteTypes {
     | '/customers/$id'
     | '/followups/$id'
     | '/opportunities/$id'
+    | '/orders/$id'
     | '/customers'
     | '/followups'
     | '/opportunities'
+    | '/orders'
     | '/process-config'
     | '/roles'
     | '/tasks'
@@ -162,9 +184,11 @@ export interface FileRouteTypes {
     | '/customers/$id'
     | '/followups/$id'
     | '/opportunities/$id'
+    | '/orders/$id'
     | '/customers/'
     | '/followups/'
     | '/opportunities/'
+    | '/orders/'
     | '/process-config/'
     | '/roles/'
     | '/tasks/'
@@ -177,9 +201,11 @@ export interface RootRouteChildren {
   CustomersIdRoute: typeof CustomersIdRoute
   FollowupsIdRoute: typeof FollowupsIdRoute
   OpportunitiesIdRoute: typeof OpportunitiesIdRoute
+  OrdersIdRoute: typeof OrdersIdRoute
   CustomersIndexRoute: typeof CustomersIndexRoute
   FollowupsIndexRoute: typeof FollowupsIndexRoute
   OpportunitiesIndexRoute: typeof OpportunitiesIndexRoute
+  OrdersIndexRoute: typeof OrdersIndexRoute
   ProcessConfigIndexRoute: typeof ProcessConfigIndexRoute
   RolesIndexRoute: typeof RolesIndexRoute
   TasksIndexRoute: typeof TasksIndexRoute
@@ -224,6 +250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProcessConfigIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/orders/': {
+      id: '/orders/'
+      path: '/orders'
+      fullPath: '/orders/'
+      preLoaderRoute: typeof OrdersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/opportunities/': {
       id: '/opportunities/'
       path: '/opportunities'
@@ -243,6 +276,13 @@ declare module '@tanstack/react-router' {
       path: '/customers'
       fullPath: '/customers/'
       preLoaderRoute: typeof CustomersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orders/$id': {
+      id: '/orders/$id'
+      path: '/orders/$id'
+      fullPath: '/orders/$id'
+      preLoaderRoute: typeof OrdersIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/opportunities/$id': {
@@ -281,9 +321,11 @@ const rootRouteChildren: RootRouteChildren = {
   CustomersIdRoute: CustomersIdRoute,
   FollowupsIdRoute: FollowupsIdRoute,
   OpportunitiesIdRoute: OpportunitiesIdRoute,
+  OrdersIdRoute: OrdersIdRoute,
   CustomersIndexRoute: CustomersIndexRoute,
   FollowupsIndexRoute: FollowupsIndexRoute,
   OpportunitiesIndexRoute: OpportunitiesIndexRoute,
+  OrdersIndexRoute: OrdersIndexRoute,
   ProcessConfigIndexRoute: ProcessConfigIndexRoute,
   RolesIndexRoute: RolesIndexRoute,
   TasksIndexRoute: TasksIndexRoute,

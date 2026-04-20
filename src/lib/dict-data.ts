@@ -5,89 +5,65 @@ export interface DictItem {
 }
 
 export const dictionaries: Record<string, DictItem[]> = {
-  // Customer level
+  // Customer industry (dict-industry)
+  "dict-industry": [
+    { label: "包装", value: "packaging", color: "blue" },
+    { label: "五金", value: "hardware", color: "purple" },
+    { label: "眼镜镜片", value: "eyewear", color: "cyan" },
+    { label: "电子元器件", value: "electronics", color: "amber" },
+    { label: "其他", value: "other", color: "gray" },
+  ],
+  // Customer level (dict-customer-level)
   "dict-customer-level": [
-    { label: "A类客户", value: "A", color: "red" },
-    { label: "B类客户", value: "B", color: "orange" },
-    { label: "C类客户", value: "C", color: "blue" },
+    { label: "高价值", value: "high", color: "red" },
+    { label: "中价值", value: "medium", color: "amber" },
+    { label: "普通", value: "low", color: "gray" },
   ],
-  // Customer status
-  "dict-customer-status": [
-    { label: "跟进中", value: "active", color: "green" },
-    { label: "久未跟进", value: "inactive", color: "gray" },
-    { label: "已流失", value: "churned", color: "red" },
-    // Legacy values kept for backward compat
-    { label: "潜在客户", value: "potential", color: "blue" },
+  // Company scale (dict-company-scale)
+  "dict-company-scale": [
+    { label: "小型（50人以下）", value: "small", color: "green" },
+    { label: "中型（50-200人）", value: "medium", color: "blue" },
+    { label: "大型（200人以上）", value: "large", color: "purple" },
   ],
-  // Contact importance
-  "dict-contact-importance": [
-    { label: "关键决策人", value: "key", color: "red" },
-    { label: "有影响力", value: "influence", color: "orange" },
-    { label: "普通联系人", value: "normal", color: "blue" },
-  ],
-  // Opportunity stage
+  // Opportunity stage (dict-opportunity-stage)
   "dict-opportunity-stage": [
-    { label: "线索", value: "lead", color: "gray" },
-    { label: "初步接触", value: "initialContact", color: "blue" },
-    { label: "技术交流", value: "technicalExchange", color: "purple" },
-    { label: "商务谈判", value: "businessNegotiation", color: "orange" },
-    { label: "合同签订", value: "contractSigned", color: "green" },
-    { label: "回款完成", value: "paymentReceived", color: "green" },
+    { label: "需求确认", value: "demand_confirmed", color: "blue" },
+    { label: "方案评估", value: "scheme_evaluating", color: "purple" },
+    { label: "技术对接", value: "tech_reviewing", color: "cyan" },
+    { label: "商务谈判", value: "business_negotiating", color: "amber" },
+    { label: "已签约", value: "signed", color: "green" },
   ],
-  // Opportunity status
-  "dict-opportunity-status": [
-    { label: "进行中", value: "open", color: "blue" },
-    { label: "赢单", value: "won", color: "green" },
-    { label: "输单", value: "lost", color: "red" },
-    { label: "已取消", value: "cancelled", color: "gray" },
+  // Order status (dict-order-status)
+  "dict-order-status": [
+    { label: "签约", value: "signed", color: "blue" },
+    { label: "生产排期", value: "production_planning", color: "purple" },
+    { label: "生产中", value: "in_production", color: "cyan" },
+    { label: "质检", value: "quality_check", color: "amber" },
+    { label: "发货", value: "shipped", color: "green" },
+    { label: "安装调试", value: "installing", color: "teal" },
+    { label: "验收", value: "accepted", color: "green" },
+  ],
+  // Customer source
+  "dict-customer-source": [
+    { label: "官网线索", value: "website", color: "blue" },
+    { label: "展会", value: "exhibition", color: "purple" },
+    { label: "客户推荐", value: "referral", color: "green" },
+    { label: "电话营销", value: "cold_call", color: "amber" },
+    { label: "其他", value: "other", color: "gray" },
   ],
   // Followup type
   "dict-followup-type": [
-    { label: "拜访", value: "visit", color: "blue" },
-    { label: "电话", value: "call", color: "purple" },
-    { label: "会议", value: "meeting", color: "orange" },
-    { label: "邮件", value: "email", color: "gray" },
+    { label: "电话", value: "call", color: "blue" },
+    { label: "拜访", value: "visit", color: "purple" },
+    { label: "线上沟通", value: "online", color: "cyan" },
     { label: "其他", value: "other", color: "gray" },
   ],
-  // Task type
-  "dict-task-type": [
-    { label: "跟进任务", value: "followup", color: "blue" },
-    { label: "技术交流", value: "technical", color: "purple" },
-    { label: "审批任务", value: "approval", color: "orange" },
-    { label: "交付任务", value: "delivery", color: "green" },
-  ],
-  // Task status
-  "dict-task-status": [
-    { label: "待处理", value: "pending", color: "blue" },
-    { label: "进行中", value: "inProgress", color: "orange" },
-    { label: "已完成", value: "completed", color: "green" },
-    { label: "已逾期", value: "overdue", color: "red" },
-  ],
-  // Product line
-  "dict-product-line": [
-    { label: "整机", value: "machine", color: "blue" },
-    { label: "配件", value: "parts", color: "orange" },
-    { label: "再制造", value: "remanufacturing", color: "green" },
-  ],
-  // Industry (kept for legacy followup pages)
-  "dict-customer-industry": [
-    { label: "通用制造", value: "manufacturing", color: "blue" },
-    { label: "汽车", value: "automotive", color: "purple" },
-    { label: "电子", value: "electronics", color: "orange" },
-    { label: "机械设备", value: "machinery", color: "blue" },
-    { label: "新能源", value: "energy", color: "green" },
-  ],
-  // Legacy dicts for existing followup pages
-  "dict-followup-result": [
-    { label: "积极", value: "positive", color: "green" },
-    { label: "中性", value: "neutral", color: "yellow" },
-    { label: "消极", value: "negative", color: "red" },
-    { label: "待定", value: "pending", color: "gray" },
-  ],
-  "dict-followup-stage": [
-    { label: "需求确认", value: "qualify", color: "blue" },
-    { label: "方案报价", value: "proposal", color: "orange" },
-    { label: "合同谈判", value: "negotiation", color: "purple" },
-    { label: "已成交", value: "closed", color: "green" },
+  // Sales rep (for ownerId select)
+  "dict-sales-rep": [
+    { label: "张磊", value: "rep-001", color: "blue" },
+    { label: "李婷", value: "rep-002", color: "purple" },
+    { label: "王强", value: "rep-003", color: "cyan" },
+    { label: "赵敏", value: "rep-004", color: "amber" },
+    { label: "孙凯", value: "rep-005", color: "green" },
   ],
 }

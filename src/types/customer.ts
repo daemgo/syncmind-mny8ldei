@@ -1,37 +1,39 @@
 export interface Customer {
   id: string
-  customerName: string
-  shortName: string
-  level: "A" | "B" | "C"
+  code: string
+  name: string
   industry: string
-  registeredCapital: number
-  employeeCount: string
-  region: string
+  scale: string
   address: string
-  creditCode: string
-  status: "active" | "inactive" | "churned"
-  ownerName: string
+  website: string
+  level: string
   ownerId: string
-  lastFollowUpAt: string
+  ownerName: string
+  primaryContact: string
+  phone: string
+  email: string
+  source: string
+  pooledAt: string | null
+  lastFollowUpAt: string | null
   createdAt: string
+  updatedAt: string
 }
 
 export interface Contact {
   id: string
   customerId: string
   name: string
-  department: string
   title: string
-  mobile: string
+  phone: string
   email: string
-  importance: "key" | "influence" | "normal"
+  isPrimary: boolean
 }
 
 export interface CustomerFollowup {
   id: string
   customerId: string
   occurredAt: string
-  type: "visit" | "call" | "meeting" | "email" | "other"
+  type: string
+  summary: string
   ownerName: string
-  content: string
 }

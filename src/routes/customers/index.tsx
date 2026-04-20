@@ -13,31 +13,34 @@ export const Route = createFileRoute("/customers/")({
 })
 
 const columns: ColumnConfig<Customer>[] = [
-  { key: "customerName", label: "客户名称" },
-  { key: "level", label: "客户级别", type: "badge", dictId: "dict-customer-level" },
-  { key: "industry", label: "所在行业" },
-  { key: "ownerName", label: "归属销售" },
-  { key: "status", label: "状态", type: "badge", dictId: "dict-customer-status" },
+  { key: "code", label: "客户编号", type: "mono" },
+  { key: "name", label: "客户名称" },
+  { key: "industry", label: "行业", type: "badge", dictId: "dict-industry" },
+  { key: "primaryContact", label: "联系人" },
+  { key: "phone", label: "手机" },
+  { key: "ownerName", label: "负责销售" },
+  { key: "level", label: "客户等级", type: "badge", dictId: "dict-customer-level" },
   { key: "lastFollowUpAt", label: "最近跟进", type: "date" },
-  { key: "createdAt", label: "创建时间", type: "date" },
 ]
 
 const filterFields: FilterField[] = [
-  { key: "customerName", label: "客户名称", type: "text" },
-  { key: "level", label: "客户级别", type: "select", dictId: "dict-customer-level" },
-  { key: "status", label: "客户状态", type: "select", dictId: "dict-customer-status" },
+  { key: "name", label: "关键词", type: "text" },
+  { key: "industry", label: "行业", type: "select", dictId: "dict-industry" },
+  { key: "ownerId", label: "负责销售", type: "select", dictId: "dict-sales-rep" },
+  { key: "level", label: "客户等级", type: "select", dictId: "dict-customer-level" },
 ]
 
 const formFields: FormField[] = [
-  { key: "customerName", label: "客户名称", type: "text", required: true },
-  { key: "shortName", label: "客户简称", type: "text" },
-  { key: "level", label: "客户级别", type: "select", dictId: "dict-customer-level", required: true },
-  { key: "industry", label: "所在行业", type: "text" },
-  { key: "region", label: "所在地区", type: "text" },
-  { key: "employeeCount", label: "员工规模", type: "text" },
-  { key: "registeredCapital", label: "注册资本（万元）", type: "number" },
-  { key: "creditCode", label: "统一信用代码", type: "text" },
-  { key: "address", label: "详细地址", type: "textarea", fullWidth: true },
+  { key: "name", label: "客户名称", type: "text", required: true },
+  { key: "industry", label: "行业", type: "select", dictId: "dict-industry" },
+  { key: "scale", label: "企业规模", type: "select", dictId: "dict-company-scale" },
+  { key: "address", label: "地址", type: "text" },
+  { key: "website", label: "网址", type: "text" },
+  { key: "level", label: "客户等级", type: "select", dictId: "dict-customer-level" },
+  { key: "ownerId", label: "负责销售", type: "select", dictId: "dict-sales-rep" },
+  { key: "primaryContact", label: "主联系人", type: "text" },
+  { key: "phone", label: "手机", type: "text" },
+  { key: "email", label: "邮箱", type: "text" },
 ]
 
 function CustomersPage() {
@@ -60,7 +63,7 @@ function CustomersPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">客户管理</h1>
-          <p className="text-muted-foreground text-sm mt-1">企业级客户资源池 · 共 {data.length} 家客户</p>
+          <p className="text-muted-foreground text-sm mt-1">客户档案库 · 共 {data.length} 家</p>
         </div>
         <Button onClick={() => { setEditingItem(undefined); setDialogOpen(true) }}>
           <Plus className="mr-2 h-4 w-4" />新建客户

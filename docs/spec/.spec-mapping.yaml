@@ -1,9 +1,9 @@
-specHash: "spec-v1.0.0-2026-04-14"
-generatedAt: "2026-04-14T00:00:00+08:00"
+specHash: "spec-v1.0.0-2026-04-20"
+generatedAt: "2026-04-20T00:00:00+08:00"
 sourceMode: "spec"
 modules:
   - moduleId: dashboard
-    moduleName: 销售管理驾驶舱
+    moduleName: 销售看板
     locked: false
     files:
       - src/routes/index.tsx
@@ -19,16 +19,22 @@ modules:
     files:
       - src/routes/opportunities/index.tsx
       - src/routes/opportunities/$id.tsx
-  - moduleId: tasks
-    moduleName: 任务中心
+  - moduleId: orders
+    moduleName: 订单管理
     locked: false
     files:
-      - src/routes/tasks/index.tsx
+      - src/routes/orders/index.tsx
+      - src/routes/orders/$id.tsx
   - moduleId: public-pool
-    moduleName: 公海池（占位）
+    moduleName: 公海池
     locked: false
     files:
       - src/routes/customers/public-pool/index.tsx
+  - moduleId: tasks
+    moduleName: 任务中心（占位）
+    locked: false
+    files:
+      - src/routes/tasks/index.tsx
   - moduleId: process-config
     moduleName: 流程配置（占位）
     locked: false

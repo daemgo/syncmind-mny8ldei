@@ -6,24 +6,18 @@ import {
   LayoutDashboard,
   Users,
   TrendingUp,
-  CheckSquare,
-  GitBranch,
+  ClipboardList,
   Globe,
-  UserCog,
-  Shield,
 } from "lucide-react"
 import { CrmProvider } from "@/lib/crm-store"
 import { Toaster } from "@/components/ui/sonner"
 
 const menuItems: MenuItem[] = [
-  { label: "销售驾驶舱", href: "/", icon: LayoutDashboard, group: "核心" },
-  { label: "客户管理", href: "/customers", icon: Users, group: "业务" },
-  { label: "公海池", href: "/customers/public-pool", icon: Globe, group: "业务" },
-  { label: "商机管理", href: "/opportunities", icon: TrendingUp, group: "业务" },
-  { label: "任务中心", href: "/tasks", icon: CheckSquare, group: "流程" },
-  { label: "流程配置", href: "/process-config", icon: GitBranch, group: "流程" },
-  { label: "员工管理", href: "/users", icon: UserCog, group: "系统" },
-  { label: "角色权限", href: "/roles", icon: Shield, group: "系统" },
+  { label: "销售看板", href: "/", icon: LayoutDashboard },
+  { label: "客户管理", href: "/customers", icon: Users },
+  { label: "公海池", href: "/customers/public-pool", icon: Globe },
+  { label: "商机管理", href: "/opportunities", icon: TrendingUp },
+  { label: "订单管理", href: "/orders", icon: ClipboardList },
 ]
 
 export const Route = createRootRoute({
@@ -34,8 +28,8 @@ export const Route = createRootRoute({
         name: "viewport",
         content: "width=device-width, initial-scale=1",
       },
-      { title: "长机科技 CRM" },
-      { name: "description", content: "宜昌长机科技销售管理系统" },
+      { title: "国彩真空 CRM" },
+      { name: "description", content: "温州国彩真空镀膜设备销售管理系统" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -61,7 +55,7 @@ function RootComponent() {
       </head>
       <body className="antialiased" style={{ fontFamily: "'Inter', 'Noto Sans SC', system-ui, sans-serif" }}>
         <CrmProvider>
-          <AppShell title="CRM" items={menuItems}>
+          <AppShell title="国彩真空 CRM" items={menuItems}>
             <Outlet />
           </AppShell>
           <Toaster richColors position="top-right" />

@@ -88,7 +88,6 @@ function Dashboard() {
     <div className="space-y-6 p-6">
       <div>
         <h1 className="text-2xl font-bold">销售管理驾驶舱</h1>
-        <p className="text-muted-foreground text-sm mt-1">长机科技 · 核心指标实时概览</p>
       </div>
 
       {/* Stats Cards */}

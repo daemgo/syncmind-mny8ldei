@@ -61,7 +61,7 @@ function RootComponent() {
       </head>
       <body className="antialiased" style={{ fontFamily: "'Inter', 'Noto Sans SC', system-ui, sans-serif" }}>
         <CrmProvider>
-          <AppShell title="长机 CRM" items={menuItems}>
+          <AppShell title="CRM" items={menuItems}>
             <Outlet />
           </AppShell>
           <Toaster richColors position="top-right" />

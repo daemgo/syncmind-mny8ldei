@@ -1,5 +1,5 @@
 {
-  "currentVersion": "v0.1",
+  "currentVersion": "v0.2",
   "status": "draft",
   "versions": [{
     "version": "v0.1",
@@ -7,6 +7,12 @@
     "trigger": "cold-start",
     "inputSummary": "基于客户档案（国彩真空）推演 + 客户需求信号（订单规范/销售可视化/客户沉淀/转化复购）",
     "changeSummary": ["从档案和客户需求信号推演8条需求（4条业务+4条功能）", "生成7个待问问题（4必问+3选问）"]
+  }, {
+    "version": "v0.2",
+    "createdAt": "2026-04-22T00:00:00.000Z",
+    "trigger": "客户沟通",
+    "inputSummary": "补充预算信息",
+    "changeSummary": ["明确预算约10万", "更新推荐方案（轻量SaaS或半定制）", "PQ-001已解决", "blocker减少至3个"]
   }],
   "current": {
     "salesInput": {
@@ -185,7 +191,7 @@
       ]
     },
     "constraints": {
-      "budget": { "total": "", "flexibility": "未知" },
+      "budget": { "total": "约10万", "flexibility": "10万以内轻量SaaS或20万以内半定制" },
       "timeline": { "expectedStart": "", "expectedGoLive": "" }
     },
     "successCriteria": {
@@ -213,10 +219,10 @@
     },
     "solutionDirection": {
       "overallApproach": "轻量CRM + 订单管理 + 老板看板，一期快速上线核心模块（客户+商机+订单+看板）验证价值，后续分期扩展商务闭环和生产对接",
-      "recommendedApproach": null,
-      "technicalDirection": null,
+      "recommendedApproach": "推荐轻量SaaS年订阅模式（5-8万/年）或一次性半定制开发（10万以内），均满足预算",
+      "technicalDirection": "优先云端SaaS部署，无需本地服务器，降低运维成本",
       "implementationStrategy": "先验证后扩展：一期4-6周交付核心模块，跑通后二期扩展报价/合同/回款，三期对接生产和售后",
-      "nextSteps": ["确认预算范围和时间期望", "确认是否有现有系统需要对接或数据迁移", "安排销售看板Demo演示", "确认关键决策人和参与人"]
+      "nextSteps": ["确认是否有现有系统需要对接或数据迁移", "安排销售看板Demo演示", "确认关键决策人和参与人", "确认时间期望"]
     },
     "pendingQuestions": [
       {
@@ -229,9 +235,9 @@
         "expectedDirection": "小型制造企业通常10万以内轻量SaaS或20-50万定制",
         "targetPerson": "老板/法人",
         "relatedNeedIds": ["REQ-001", "REQ-002", "REQ-003", "REQ-004"],
-        "status": "pending",
-        "answer": null,
-        "resolvedInVersion": null
+        "status": "resolved",
+        "answer": "约10万",
+        "resolvedInVersion": "v0.2"
       },
       {
         "id": "PQ-002",
@@ -333,12 +339,12 @@
       }
     ],
     "completionRate": {
-      "overall": 25,
+      "overall": 35,
       "byCategory": {
         "business": 30,
         "functional": 20
       },
-      "blockers": ["预算未确认", "决策人未确认", "现有系统情况未知", "部署偏好未知", "时间期望未知"]
+      "blockers": ["决策人未确认", "现有系统情况未知", "时间期望未知"]
     }
   }
 }

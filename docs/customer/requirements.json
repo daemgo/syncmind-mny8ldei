@@ -1,7 +1,13 @@
 {
-  "currentVersion": "v0.2",
+  "currentVersion": "v0.3",
   "status": "draft",
   "versions": [{
+    "version": "v0.3",
+    "createdAt": "2026-04-22T00:00:00.000Z",
+    "trigger": "客户沟通",
+    "inputSummary": "客户确认技术负责人或财务会参与评估",
+    "changeSummary": ["PQ-002 已解决（决策链含技术/财务）", "blocker减少至2个"]
+  }, {
     "version": "v0.1",
     "createdAt": "2026-04-20T00:00:00.000Z",
     "trigger": "cold-start",
@@ -24,7 +30,7 @@
         "budgetSituation": "未知",
         "competitionStatus": "未知",
         "winProbability": "中",
-        "keyObstacles": ["预算未确认", "决策人未确认", "技术偏好未知", "现有系统情况未知"],
+        "keyObstacles": ["预算未确认", "技术负责人和财务的具体参与程度未知", "技术偏好未知", "现有系统情况未知"],
         "confidenceLevel": "中"
       },
       "keyPersons": [],
@@ -249,9 +255,9 @@
         "expectedDirection": "小型企业通常老板一人决策，可能有技术负责人参与评估",
         "targetPerson": "对接人/销售",
         "relatedNeedIds": [],
-        "status": "pending",
-        "answer": null,
-        "resolvedInVersion": null
+        "status": "answered",
+        "answer": "技术负责人或财务会参与评估",
+        "resolvedInVersion": "v0.3"
       },
       {
         "id": "PQ-003",
@@ -344,7 +350,7 @@
         "business": 30,
         "functional": 20
       },
-      "blockers": ["决策人未确认", "现有系统情况未知", "时间期望未知"]
+      "blockers": ["现有系统情况未知", "时间期望未知"]
     }
   }
 }
